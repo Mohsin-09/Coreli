@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Grounded Spark - JSAB - Coreli</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #f59e0b;
+            --secondary-color: #d97706;
+            --accent-color: #fbbf24;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .content-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .strength-item {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .weakness-item {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-left: 4px solid #ef4444;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .career-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .career-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+        
+        .dropdown-menu {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border: 1px solid #444;
+        }
+        
+        .dropdown-item:hover {
+            background: rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient shadow-lg" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); z-index: 1000;">
+        <div class="container">
+            <a class="navbar-brand fw-bold animate__animated animate__fadeInLeft" href="../index.html" style="color: white; font-size: 1.8rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                <i class="fas fa-brain me-2 animate__animated animate__pulse animate__infinite"></i>Coreli
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link animate__animated animate__fadeInDown px-3" href="../index.html" style="color: white; font-weight: 500; font-size: 1.1rem;">
+                            <i class="fas fa-home me-2"></i>Home
+                        </a>
+                    </li>
+                    
+                    <!-- Results Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle animate__animated animate__fadeInDown px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white; font-weight: 500; font-size: 1.1rem;">
+                            <i class="fas fa-chart-bar me-2"></i>Results
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item text-white" href="../result.html"><i class="fas fa-eye me-2"></i>View My Results</a></li>
+                            <li><a class="dropdown-item text-white" href="../history.html"><i class="fas fa-history me-2"></i>Test History</a></li>
+                            <li><hr class="dropdown-divider" style="border-color: #444;"></li>
+                            <li><a class="dropdown-item text-white" href="../compare.html"><i class="fas fa-balance-scale me-2"></i>Compare Types</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Personality Types Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle animate__animated animate__fadeInDown px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white; font-weight: 500; font-size: 1.1rem;">
+                            <i class="fas fa-users me-2"></i>Personality Types
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" style="min-width: 300px;">
+                            <!-- Justice Seekers -->
+                            <li><h6 class="dropdown-header text-warning"><i class="fas fa-balance-scale me-2"></i>Justice Seekers</h6></li>
+                            <li><a class="dropdown-item text-white" href="jsrk.html"><i class="fas fa-candle me-2"></i>The Steady Light (JSRK)</a></li>
+                            <li><a class="dropdown-item text-white" href="jsrb.html"><i class="fas fa-fire me-2"></i>The Flare of Hope (JSRB)</a></li>
+                            <li><a class="dropdown-item text-white" href="jsak.html"><i class="fas fa-shield-alt me-2"></i>The Silent Guardian (JSAK)</a></li>
+                            <li><a class="dropdown-item text-white active" href="jsab.html"><i class="fas fa-bolt me-2"></i>The Grounded Spark (JSAB)</a></li>
+                            <li><a class="dropdown-item text-white" href="jcrk.html"><i class="fas fa-heart me-2"></i>The Empathic Leader (JCRK)</a></li>
+                            <li><a class="dropdown-item text-white" href="jcrb.html"><i class="fas fa-lightbulb me-2"></i>The Emotional Beacon (JCRB)</a></li>
+                            <li><a class="dropdown-item text-white" href="jcak.html"><i class="fas fa-brain me-2"></i>The Thoughtful Idealist (JCAK)</a></li>
+                            <li><a class="dropdown-item text-white" href="jcab.html"><i class="fas fa-dove me-2"></i>The Gentle Flame (JCAB)</a></li>
+                            
+                            <li><hr class="dropdown-divider" style="border-color: #444;"></li>
+                            
+                            <!-- Victory Seekers -->
+                            <li><h6 class="dropdown-header text-success"><i class="fas fa-trophy me-2"></i>Victory Seekers</h6></li>
+                            <li><a class="dropdown-item text-white" href="vsrk.html"><i class="fas fa-bullseye me-2"></i>The Ambitious Organizer (VSRK)</a></li>
+                            <li><a class="dropdown-item text-white" href="vsrb.html"><i class="fas fa-rocket me-2"></i>The Dynamic Achiever (VSRB)</a></li>
+                            <li><a class="dropdown-item text-white" href="vsak.html"><i class="fas fa-calculator me-2"></i>The Tactical Thinker (VSAK)</a></li>
+                            <li><a class="dropdown-item text-white" href="vsab.html"><i class="fas fa-theater-masks me-2"></i>The Quiet Competitor (VSAB)</a></li>
+                            <li><a class="dropdown-item text-white" href="vcrk.html"><i class="fas fa-sparkles me-2"></i>The Intense Charmer (VCRK)</a></li>
+                            <li><a class="dropdown-item text-white" href="vcrb.html"><i class="fas fa-fire me-2"></i>The Wildfire (VCRB)</a></li>
+                            <li><a class="dropdown-item text-white" href="vcak.html"><i class="fas fa-sword me-2"></i>The Sharp Recluse (VCAK)</a></li>
+                            <li><a class="dropdown-item text-white" href="vcab.html"><i class="fas fa-bolt me-2"></i>The Unpredictable Force (VCAB)</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link animate__animated animate__fadeInDown px-3" href="../about.html" style="color: white; font-weight: 500; font-size: 1.1rem;">
+                            <i class="fas fa-info-circle me-2"></i>About
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center" style="position: relative; z-index: 2;">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInUp">
+                        <i class="fas fa-bolt me-3"></i>The Grounded Spark
+                    </h1>
+                    <h2 class="h3 mb-4 animate__animated animate__fadeInUp animate__delay-1s">Justice Driven | Practical | Warm | Steady Momentum</h2>
+                    <p class="lead mb-4 animate__animated animate__fadeInUp animate__delay-2s">
+                        A doer with heart—you turn good intentions into dependable outcomes.
+                    </p>
+                    <div class="animate__animated animate__fadeInUp animate__delay-3s">
+                        <span class="badge bg-light text-dark fs-6 px-4 py-2 me-2">
+                            <i class="fas fa-balance-scale me-1"></i>Justice Seeker
+                        </span>
+                        <span class="badge bg-light text-dark fs-6 px-4 py-2">
+                            <i class="fas fa-seedling me-1"></i>Practical & Growing
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Introduction -->
+        <div class="content-section" data-aos="fade-up">
+            <h3 class="h2 fw-bold mb-4 text-primary">
+                <i class="fas fa-lightbulb me-2"></i>Introduction
+            </h3>
+            <p class="lead">
+                A doer with heart—you turn good intentions into dependable outcomes.
+            </p>
+            <p>
+                You value stability, fairness, and small daily actions that compound into big wins.
+            </p>
+            <p>
+                People trust you to keep projects and relationships moving with care.
+            </p>
+        </div>
+        
+        <!-- Strengths & Weaknesses -->
+        <div class="content-section" data-aos="fade-up">
+            <h3 class="h2 fw-bold mb-4 text-primary">
+                <i class="fas fa-chart-line me-2"></i>Strengths & Weaknesses
+            </h3>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="h5 fw-bold text-success mb-3">
+                        <i class="fas fa-plus-circle me-2"></i>Strengths
+                    </h4>
+                    <div class="strength-item"><h6 class="fw-bold">Pragmatic Action</h6><p class="mb-0">You prioritize what works and deliver consistently.</p></div><div class="strength-item"><h6 class="fw-bold">Steady Warmth</h6><p class="mb-0">Your presence is encouraging and approachable.</p></div><div class="strength-item"><h6 class="fw-bold">Detail Orientation</h6><p class="mb-0">You notice what others miss and fix it early.</p></div><div class="strength-item"><h6 class="fw-bold">Ethical Backbone</h6><p class="mb-0">You do right by people and by the plan.</p></div>
+                </div>
+                
+                <div class="col-md-6">
+                    <h4 class="h5 fw-bold text-danger mb-3">
+                        <i class="fas fa-minus-circle me-2"></i>Areas for Growth
+                    </h4>
+                    <div class="weakness-item"><h6 class="fw-bold">Reluctance to Pivot</h6><p class="mb-0">Watch metrics and adjust sooner.</p></div><div class="weakness-item"><h6 class="fw-bold">People-Pleasing</h6><p class="mb-0">Say no without apology when needed.</p></div><div class="weakness-item"><h6 class="fw-bold">Overwork</h6><p class="mb-0">Protect rest like a deadline.</p></div><div class="weakness-item"><h6 class="fw-bold">Conflict Avoidance</h6><p class="mb-0">Use structured conversations to resolve issues.</p></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Romantic Relationships -->
+        <div class="content-section" data-aos="fade-up">
+            <h3 class="h2 fw-bold mb-4 text-primary">
+                <i class="fas fa-heart me-2"></i>Romantic Relationships
+            </h3>
+            <p class="lead">
+                In romantic relationships, you bring your values to life through consistent action and heartfelt care.
+            </p>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="fw-bold text-success">What You Bring to Relationships</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Thoughtful consistency over flash</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Acts of service and reliability</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Long-term thinking and saving</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Cozy routines and quality time</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Loyal partnership</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="fw-bold text-info">What You Need in Relationships</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-star text-info me-2"></i>Recognition for invisible work</li>
+                        <li class="mb-2"><i class="fas fa-star text-info me-2"></i>Clear plans and shared calendars</li>
+                        <li class="mb-2"><i class="fas fa-star text-info me-2"></i>Emotional check-ins, not just tasks</li>
+                        <li class="mb-2"><i class="fas fa-star text-info me-2"></i>Permission to rest without guilt</li>
+                        <li class="mb-2"><i class="fas fa-star text-info me-2"></i>Encouragement to try new things</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Friendships -->
+        <div class="content-section" data-aos="fade-up">
+            <h3 class="h2 fw-bold mb-4 text-primary">
+                <i class="fas fa-users me-2"></i>Friendships
+            </h3>
+            <p class="lead">
+                As a friend, you create connection, momentum, and meaning.
+            </p>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="fw-bold text-success">Your Friendship Style</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Shows up on time, prepared</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Keeps friend groups organized</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Remembers birthdays and milestones</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Cooks, hosts, supports</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Helps turn ideas into action</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="fw-bold text-info">Building Strong Friendships</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-lightbulb text-info me-2"></i>Ask for help before burnout</li>
+                        <li class="mb-2"><i class="fas fa-lightbulb text-info me-2"></i>Try low-risk spontaneity</li>
+                        <li class="mb-2"><i class="fas fa-lightbulb text-info me-2"></i>Set a ‘max commitments’ rule</li>
+                        <li class="mb-2"><i class="fas fa-lightbulb text-info me-2"></i>Share feelings directly</li>
+                        <li class="mb-2"><i class="fas fa-lightbulb text-info me-2"></i>Celebrate your own wins too</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Parenthood -->
+        <div class="content-section" data-aos="fade-up">
+            <h3 class="h2 fw-bold mb-4 text-primary">
+                <i class="fas fa-baby me-2"></i>Parenthood
+            </h3>
+            <p class="lead">
+                As a parent, you offer stability, wisdom, and heart—shaping a home where values are lived daily.
+            </p>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="fw-bold text-success">Your Parenting Strengths</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Predictable, comforting home base</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Strong follow-through on routines</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Teaches responsibility and kindness</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Patient problem solving</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Budgeting and planning skills</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="fw-bold text-info">Parenting Growth Areas</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-lightbulb text-info me-2"></i>Let kids experiment (safely)</li>
+                        <li class="mb-2"><i class="fas fa-lightbulb text-info me-2"></i>Loosen up rituals on holidays</li>
+                        <li class="mb-2"><i class="fas fa-lightbulb text-info me-2"></i>Name emotions openly</li>
+                        <li class="mb-2"><i class="fas fa-lightbulb text-info me-2"></i>Encourage creative mess sometimes</li>
+                        <li class="mb-2"><i class="fas fa-lightbulb text-info me-2"></i>Model taking breaks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Career Paths -->
+        <div class="content-section" data-aos="fade-up">
+            <h3 class="h2 fw-bold mb-4 text-primary">
+                <i class="fas fa-briefcase me-2"></i>Career Paths
+            </h3>
+            <p class="lead">
+                You thrive where purpose meets structure—and where people benefit from your strengths.
+            </p>
+            
+            <div class="row">
+                
+                <div class="col-md-4">
+                    <div class="career-card">
+                        <h5 class="fw-bold text-primary">
+                            <i class="fas fa-chalkboard-teacher me-2"></i>Education
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li>• Teacher</li>
+                            <li>• Curriculum Coordinator</li>
+                            <li>• Student Services</li>
+                            <li>• Early Childhood Educator</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="career-card">
+                        <h5 class="fw-bold text-primary">
+                            <i class="fas fa-heartbeat me-2"></i>Healthcare
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li>• Clinic Coordinator</li>
+                            <li>• Nurse</li>
+                            <li>• Rehab Therapist</li>
+                            <li>• Public Health Worker</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="career-card">
+                        <h5 class="fw-bold text-primary">
+                            <i class="fas fa-balance-scale me-2"></i>Public Service
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li>• City Services Coordinator</li>
+                            <li>• Court Clerk</li>
+                            <li>• Community Program Lead</li>
+                            <li>• Library Services</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Workplace Habits -->
+        <div class="content-section" data-aos="fade-up">
+            <h3 class="h2 fw-bold mb-4 text-primary">
+                <i class="fas fa-building me-2"></i>Workplace Habits
+            </h3>
+            <p class="lead">
+                Colleagues value your reliability, initiative, and your ability to keep teams aligned with what matters.
+            </p>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="fw-bold text-success">Workplace Strengths</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Operational reliability</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Calm project pacing</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Quality control and checklists</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Empathy with boundaries</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Team morale through care</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="fw-bold text-info">Professional Development</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-lightbulb text-info me-2"></i>Escalate risks earlier</li>
+                        <li class="mb-2"><i class="fas fa-lightbulb text-info me-2"></i>Delegate recurring tasks</li>
+                        <li class="mb-2"><i class="fas fa-lightbulb text-info me-2"></i>Block recharge time</li>
+                        <li class="mb-2"><i class="fas fa-lightbulb text-info me-2"></i>Adopt ‘good enough’ standards</li>
+                        <li class="mb-2"><i class="fas fa-lightbulb text-info me-2"></i>Practice constructive candor</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Conclusion -->
+        <div class="content-section" data-aos="fade-up">
+            <h3 class="h2 fw-bold mb-4 text-primary">
+                <i class="fas fa-flag-checkered me-2"></i>Conclusion
+            </h3>
+            <p class="lead">
+                Your qualities make a real, lasting difference. Keep refining your edge while staying true to your core values.
+            </p>
+            <p>
+                Growth comes from balance—pair your natural strengths with deliberate habits that protect your energy and expand your impact.
+            </p>
+            <div class="text-center mt-4">
+                <a href="../index.html" class="btn btn-primary btn-lg me-3">
+                    <i class="fas fa-home me-2"></i>Take the Test
+                </a>
+                <a href="jcrk.html" class="btn btn-outline-primary btn-lg">
+                    <i class="fas fa-arrow-right me-2"></i>Next Type
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer text-white py-5 mt-5" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 text-center text-md-start mb-4">
+                    <div class="d-flex align-items-center justify-content-center justify-content-md-start mb-3">
+                        <i class="fas fa-brain fa-2x me-3 animate__animated animate__pulse animate__infinite"></i>
+                        <h4 class="fw-bold mb-0">Coreli</h4>
+                    </div>
+                    <p class="mb-3 text-light">Empowering self-discovery through personality insights and psychological assessments.</p>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 text-center mb-4">
+                    <h5 class="fw-bold mb-4">
+                        <i class="fas fa-share-alt me-2"></i>Connect With Us
+                    </h5>
+                    <div class="d-flex justify-content-center gap-4 mb-3">
+                        <a href="#" class="social-icon text-white fs-3 p-3 rounded-circle" style="background: rgba(255,255,255,0.1); transition: all 0.3s ease;">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon text-white fs-3 p-3 rounded-circle" style="background: rgba(255,255,255,0.1); transition: all 0.3s ease;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon text-white fs-3 p-3 rounded-circle" style="background: rgba(255,255,255,0.1); transition: all 0.3s ease;">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-icon text-white fs-3 p-3 rounded-circle" style="background: rgba(255,255,255,0.1); transition: all 0.3s ease;">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-12 text-center text-md-end mb-4">
+                    <h5 class="fw-bold mb-4">
+                        <i class="fas fa-link me-2"></i>Quick Links
+                    </h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="../index.html" class="text-white text-decoration-none d-flex align-items-center justify-content-center justify-content-md-end">
+                                <i class="fas fa-home me-2"></i>Home
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="../about.html" class="text-white text-decoration-none d-flex align-items-center justify-content-center justify-content-md-end">
+                                <i class="fas fa-info-circle me-2"></i>About
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="../result.html" class="text-white text-decoration-none d-flex align-items-center justify-content-center justify-content-md-end">
+                                <i class="fas fa-chart-bar me-2"></i>Results
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.2);">
+            
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">
+                        <i class="fas fa-copyright me-1"></i>2024 Coreli. All rights reserved.
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">
+                        Made with <i class="fas fa-heart text-danger animate__animated animate__heartBeat animate__infinite"></i> for better understanding
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+</body>
+</html>
