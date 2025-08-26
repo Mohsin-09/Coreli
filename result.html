@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Personality Results - Coreli</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #3b82f6;
+            --secondary-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+            --success-green: #10b981;
+            --warning-orange: #f59e0b;
+            --danger-red: #ef4444;
+        }
+        
+        .result-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .personality-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .personality-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .trait-bar {
+            height: 12px;
+            border-radius: 6px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-purple));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .trait-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: var(--percentage);
+            background: linear-gradient(90deg, var(--success-green), var(--warning-orange));
+            border-radius: 6px;
+            transition: width 1.5s ease;
+        }
+        
+        .identity-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .insight-item {
+            padding: 0.75rem;
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .trait-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .profession-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--success-green);
+        }
+        
+        .profession-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .history-item {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary-blue);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .history-item:hover {
+            transform: translateY(-2px);
+        }
+        
+        .trait-percentage {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+        
+        .personality-avatar-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+        }
+        
+        .personality-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .avatar-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .avatar-icon {
+            font-size: 4rem;
+            color: white;
+            z-index: 3;
+            position: relative;
+        }
+        
+        .avatar-description {
+            text-align: center;
+            max-width: 250px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+        
+        .avatar-glow {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.3) 0%, transparent 70%);
+            animation: pulse 2s infinite;
+            z-index: 1;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 0.4; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+        
+        .personality-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+        
+        .trait-section {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--primary-blue);
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .share-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        /* Footer Base */
+     /* Footer Base */
+     .footer {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      padding: 60px 0 30px;
+      text-align: center;
+    }
+
+    .footer h4 {
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .footer p {
+      max-width: 600px;
+      margin: 0 auto 20px;
+      opacity: 0.9;
+    }
+
+    /* Badges */
+    .footer .badge {
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 30px;
+    }
+
+    /* Social Icons */
+    .footer .social-icon {
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 20px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 8px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    .footer .social-icon:hover {
+      background: #ffd700;
+      color: #000;
+      transform: scale(1.2);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    }
+
+    /* Quick Links */
+    .footer .quick-links a {
+      display: inline-block;
+      margin: 0 12px;
+      font-size: 1rem;
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer .quick-links a:hover {
+      color: #ffd700;
+    }
+
+    /* Divider */
+    .footer hr {
+      border-color: rgba(255, 255, 255, 0.3);
+      margin: 30px auto;
+      width: 80%;
+    }
+
+    /* Bottom Text */
+    .footer-bottom {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            color: white;
+        }
+        
+        .share-btn.facebook { background: #1877f2; }
+        .share-btn.twitter { background: #1da1f2; }
+        .share-btn.linkedin { background: #0077b5; }
+        .share-btn.whatsapp { background: #25d366; }
+        .share-btn.copy { background: var(--primary-blue); }
+        
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            transform: translateY(-2px);
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px) scale(1.1);
+        }
+        
+        .btn-retake {
+            background: linear-gradient(135deg, var(--success-green), var(--primary-blue));
+            border: none;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-retake:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            color: white;
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .shape:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .shape:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+        
+        .shape:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Responsive Design for Mobile (360x800) */
+        @media (max-width: 480px) {
+            .result-header {
+                padding: 2rem 0;
+                margin-bottom: 2rem;
+            }
+            
+            .result-header h1 {
+                font-size: 2rem !important;
+            }
+            
+            .personality-card {
+                margin-bottom: 2rem;
+            }
+            
+            .personality-card .card-body {
+                padding: 2rem !important;
+            }
+            
+            .personality-avatar {
+                width: 150px;
+                height: 150px;
+                font-size: 3rem;
+            }
+            
+            .avatar-glow {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .personality-avatar-container {
+                height: 200px;
+            }
+            
+            .trait-section {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .identity-section {
+                padding: 1.5rem;
+            }
+            
+            .share-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .share-btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+            
+            .btn-retake {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+            
+            .display-5 {
+                font-size: 1.5rem !important;
+            }
+            
+            .display-3 {
+                font-size: 2.5rem !important;
+            }
+            
+            .lead {
+                font-size: 1rem !important;
+            }
+            
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .col-lg-10 {
+                padding: 0;
+            }
+            
+            .floating-shapes .shape {
+                display: none;
+            }
+            
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 0.5rem 0.75rem !important;
+            }
+        }
+
+        /* Responsive Design for Desktop (1920x1080) */
+        @media (min-width: 1920px) {
+            .container {
+                max-width: 1600px;
+            }
+            
+            .result-header {
+                padding: 4rem 0;
+                margin-bottom: 4rem;
+            }
+            
+            .result-header h1 {
+                font-size: 4rem !important;
+            }
+            
+            .personality-card {
+                margin-bottom: 3rem;
+            }
+            
+            .personality-card .card-body {
+                padding: 4rem !important;
+            }
+            
+            .personality-avatar {
+                width: 300px;
+                height: 300px;
+                font-size: 6rem;
+            }
+            
+            .avatar-glow {
+                width: 350px;
+                height: 350px;
+            }
+            
+            .personality-avatar-container {
+                height: 400px;
+            }
+            
+            .trait-section {
+                padding: 3rem;
+                margin-bottom: 3rem;
+            }
+            
+            .identity-section {
+                padding: 3rem;
+            }
+            
+            .share-buttons {
+                gap: 1.5rem;
+            }
+            
+            .share-btn {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+            
+            .btn-retake {
+                padding: 1.5rem 3rem;
+                font-size: 1.2rem;
+            }
+            
+            .display-5 {
+                font-size: 3rem !important;
+            }
+            
+            .display-3 {
+                font-size: 4.5rem !important;
+            }
+            
+            .lead {
+                font-size: 1.5rem !important;
+            }
+            
+            .trait-item {
+                padding: 1.5rem;
+            }
+            
+            .profession-card {
+                padding: 2rem;
+            }
+            
+            .history-item {
+                padding: 2rem;
+            }
+            
+            .floating-shapes .shape {
+                font-size: 4rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.8rem;
+            }
+            
+            .nav-link {
+                font-size: 1.2rem;
+                padding: 1rem 1.5rem !important;
+            }
+        }
+
+        /* Tablet Responsive */
+        @media (min-width: 481px) and (max-width: 1024px) {
+            .personality-avatar {
+                width: 180px;
+                height: 180px;
+                font-size: 3.5rem;
+            }
+            
+            .avatar-glow {
+                width: 220px;
+                height: 220px;
+            }
+            
+            .personality-avatar-container {
+                height: 250px;
+            }
+            
+            .share-buttons {
+                gap: 0.75rem;
+            }
+            
+            .share-btn {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html" data-aos="fade-right">
+                <i class="fas fa-brain me-2"></i>Coreli
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="index.html" data-aos="fade-left" data-aos-delay="100">Home</a>
+                <a class="nav-link" href="#" data-aos="fade-left" data-aos-delay="200" onclick="showHistory()">History</a>
+                <a class="nav-link" href="#" data-aos="fade-left" data-aos-delay="300">About</a>
+                <a class="nav-link" href="#" data-aos="fade-left" data-aos-delay="400">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- History Modal -->
+    <div class="modal fade" id="historyModal" tabindex="-1" aria-labelledby="historyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-gradient text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <h5 class="modal-title" id="historyModalLabel">
+                        <i class="fas fa-history me-2"></i>Test History
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="historyContent">
+                        <!-- History items will be loaded here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Header -->
+    <div class="result-header text-center">
+        <div class="container">
+            <div class="floating-shapes">
+                <div class="shape">
+                    <i class="fas fa-star fa-3x text-white"></i>
+                </div>
+                <div class="shape">
+                    <i class="fas fa-heart fa-3x text-white"></i>
+                </div>
+                <div class="shape">
+                    <i class="fas fa-lightbulb fa-3x text-white"></i>
+                </div>
+            </div>
+            
+            <h1 class="display-3 fw-bold mb-3" data-aos="fade-up">
+                <i class="fas fa-trophy me-3"></i>Your Results Are In!
+            </h1>
+            <p class="lead mb-0" data-aos="fade-up" data-aos-delay="200">
+                Discover your unique personality type and what makes you special
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Personality Type Card -->
+                <div class="personality-card mb-5" data-aos="zoom-in">
+                    <div class="card-body p-5 text-center">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h2 class="display-5 fw-bold text-primary mb-3" id="personalityTitle">
+                                    You are <span id="personalityType">JSRK</span>
+                                </h2>
+                                <h3 class="h4 text-muted mb-3" id="personalityNickname">
+                                    The Steady Light
+                                </h3>
+                                <p class="lead mb-4" id="personalityDescription">
+                                    Justice Driven | Seeker of Stability | Radiator | Consistency Driven
+                                </p>
+                                <div class="mb-4">
+                                    <span class="badge bg-primary fs-6 px-4 py-2" id="personalityCategory">
+                                        ⚖️ Justice Seeker
+                                    </span>
+                                </div>
+                                <p class="text-muted" id="categoryDescription">
+                                    Justice Seekers are driven by fairness, equality, and helping others.
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="personality-avatar-container">
+                                    <div class="personality-avatar" id="personalityAvatar" onclick="showAvatarDetails()" style="cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="Click to learn more about your avatar">
+                                        <img class="avatar-image" id="avatarImage" style="display: none;" alt="Personality Avatar">
+                                        <div class="avatar-icon" id="avatarIcon">🕯️</div>
+                                    </div>
+                                    <div class="avatar-glow"></div>
+                                    <small class="text-muted mt-2 d-block" id="avatarDescription">The Steady Light - A calm, glowing candle representing steady guidance and warmth</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personality Traits (Enhanced) -->
+                <div class="trait-section" data-aos="fade-up">
+                    <h3 class="h4 fw-bold mb-4 text-primary">
+                        <i class="fas fa-chart-bar me-2"></i>Personality Traits
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="trait-item mb-3">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="fw-semibold">Justice vs Victory</span>
+                                    <span class="text-primary fw-bold" id="jvPercent">50%</span>
+                                </div>
+                                <div class="trait-bar" style="--percentage: 50%"></div>
+                            </div>
+                            <div class="trait-item mb-3">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="fw-semibold">Stability vs Chaos</span>
+                                    <span class="text-primary fw-bold" id="scPercent">50%</span>
+                                </div>
+                                <div class="trait-bar" style="--percentage: 50%"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="trait-item mb-3">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="fw-semibold">Radiator vs Absorber</span>
+                                    <span class="text-primary fw-bold" id="raPercent">50%</span>
+                                </div>
+                                <div class="trait-bar" style="--percentage: 50%"></div>
+                            </div>
+                            <div class="trait-item mb-3">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="fw-semibold">Consistency vs Burst</span>
+                                    <span class="text-primary fw-bold" id="kbPercent">50%</span>
+                                </div>
+                                <div class="trait-bar" style="--percentage: 50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="traitsSummary" class="mt-4"></div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="mb-2 fw-semibold">Strengths</div>
+                            <ul id="traitsStrengths" class="mb-3"></ul>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-2 fw-semibold">Growth Tips</div>
+                            <ul id="traitsGrowthTips" class="mb-3"></ul>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Identity Section -->
+                <div class="identity-section" data-aos="fade-up">
+                    <h3 class="h4 fw-bold mb-4 text-primary">
+                        <i class="fas fa-user-shield me-2"></i>Identity
+                    </h3>
+                    
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h4 class="fw-bold mb-3" id="identityTitle">54% Assertive</h4>
+                            <p class="lead mb-3" id="identityDescription">
+                                You're likely self-assured, even-tempered, and resistant to stress, refusing to worry too much.
+                            </p>
+                            <p class="text-muted mb-0">
+                                <strong>Note:</strong> This is an description based on your personality type.
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="bg-white p-4 rounded-3 shadow-sm">
+                                <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
+                                <h5 class="fw-bold" id="identityType">Assertive</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="text-center mt-5" data-aos="fade-up">
+                    <button class="btn btn-retake me-3" onclick="retakeTest()">
+                        <i class="fas fa-redo me-2"></i>Take Test Again
+                    </button>
+                    <button class="btn btn-outline-primary" onclick="downloadResults()">
+                        <i class="fas fa-download me-2"></i>Download Results
+                    </button>
+                </div>
+
+                <!-- Share Section -->
+                <div class="text-center mt-5" data-aos="fade-up">
+                    <h4 class="fw-bold mb-4">Share Your Results</h4>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn facebook" onclick="shareResults('facebook')">
+                            <i class="fab fa-facebook-f"></i>Facebook
+                        </a>
+                        <a href="#" class="share-btn twitter" onclick="shareResults('twitter')">
+                            <i class="fab fa-twitter"></i>Twitter
+                        </a>
+                        <a href="#" class="share-btn linkedin" onclick="shareResults('linkedin')">
+                            <i class="fab fa-linkedin-in"></i>LinkedIn
+                        </a>
+                        <a href="#" class="share-btn whatsapp" onclick="shareResults('whatsapp')">
+                            <i class="fab fa-whatsapp"></i>WhatsApp
+                        </a>
+                        <button class="share-btn copy" onclick="copyResults()">
+                            <i class="fas fa-copy"></i>Copy Link
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+   <!-- Footer -->
+ <!-- Footer -->
+ <footer class="footer text-white py-5 mt-5 text-center">
+    <div class="container">
+      
+      <!-- Brand -->
+      <div class="brand mb-3">
+        <i class="fas fa-brain fa-2x animate__animated animate__pulse animate__infinite"></i>
+        Coreli
+      </div>
+
+      <!-- Description -->
+      <p class="description">
+        Empowering self-discovery through personality insights and psychological assessments.
+      </p>
+
+      <!-- Badges -->
+      <div class="mb-4">
+        <span class="badge bg-light text-dark">
+          <i class="fas fa-users me-1"></i>10K+ Users
+        </span>
+        <span class="badge bg-light text-dark">
+          <i class="fas fa-star me-1"></i>4.9 Rating
+        </span>
+      </div>
+
+      <!-- Social Links -->
+      <div class="d-flex justify-content-center gap-3 mb-4">
+        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="quick-links mb-4">
+        <a href="index.html"><i class="fas fa-home me-1"></i>Home</a>
+        <a href="about.html"><i class="fas fa-user me-1"></i>About</a>
+        <a href="history.html"><i class="fas fa-chart-line me-1"></i>Results</a>
+      </div>
+
+      <!-- Divider -->
+      <hr class="my-4">
+
+      <!-- Bottom -->
+      <p class="mb-0">
+        © 2025 Coreli | Made by Mohsin
+      </p>
+    </div>
+  </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Load results from localStorage
+        function loadResults() {
+            const testData = localStorage.getItem('personalityTestData');
+            
+            if (!testData) {
+                // Redirect to test if no results found
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            const data = JSON.parse(testData);
+            const personalityResult = data.personalityResult;
+            
+            // Update personality type display
+            document.getElementById('personalityType').textContent = personalityResult.type;
+            document.getElementById('personalityNickname').textContent = personalityResult.typeInfo.nickname;
+            document.getElementById('personalityDescription').textContent = personalityResult.typeInfo.description;
+            document.getElementById('personalityCategory').innerHTML = `${personalityResult.typeInfo.emoji} ${personalityResult.typeInfo.category}`;
+            document.getElementById('categoryDescription').textContent = personalityResult.categoryDescription;
+            
+            // Generate personality avatar
+            generatePersonalityAvatar(personalityResult.type);
+            
+            // Calculate and display trait percentages
+            calculateTraitPercentages(personalityResult.scores);
+            
+            // Fill personality sections
+            fillPersonalitySections(personalityResult.type);
+            
+            // Update identity section
+            updateIdentitySection(personalityResult);
+
+            // Save to history
+            saveToHistory(data);
+        }
+
+        // Calculate trait percentages
+        function calculateTraitPercentages(scores) {
+            // Justice vs Victory
+            const totalJV = Math.abs(scores.J) + Math.abs(scores.V);
+            const justicePercent = totalJV > 0 ? Math.round((scores.J / totalJV) * 100) : 50;
+            document.getElementById('jvPercent').textContent = `${justicePercent}%`;
+            document.querySelector('.trait-bar:nth-child(1)').style.setProperty('--percentage', `${justicePercent}%`);
+            
+            // Stability vs Chaos
+            const totalSC = Math.abs(scores.S) + Math.abs(scores.C);
+            const stabilityPercent = totalSC > 0 ? Math.round((scores.S / totalSC) * 100) : 50;
+            document.getElementById('scPercent').textContent = `${stabilityPercent}%`;
+            document.querySelector('.trait-bar:nth-child(2)').style.setProperty('--percentage', `${stabilityPercent}%`);
+            
+            // Radiator vs Absorber
+            const totalRA = Math.abs(scores.R) + Math.abs(scores.A);
+            const radiatorPercent = totalRA > 0 ? Math.round((scores.R / totalRA) * 100) : 50;
+            document.getElementById('raPercent').textContent = `${radiatorPercent}%`;
+            document.querySelector('.trait-bar:nth-child(3)').style.setProperty('--percentage', `${radiatorPercent}%`);
+            
+            // Consistency vs Burst
+            const totalKB = Math.abs(scores.K) + Math.abs(scores.B);
+            const consistencyPercent = totalKB > 0 ? Math.round((scores.K / totalKB) * 100) : 50;
+            document.getElementById('kbPercent').textContent = `${consistencyPercent}%`;
+            document.querySelector('.trait-bar:nth-child(4)').style.setProperty('--percentage', `${consistencyPercent}%`);
+        }
+
+        // Update identity section
+        function updateIdentitySection(personalityResult) {
+            // For this personality test, we'll use the category to determine identity
+            const category = personalityResult.typeInfo.category;
+            const identityText = category === 'Justice Seeker' ? 'Empathetic' : 'Ambitious';
+            
+            document.getElementById('identityTitle').textContent = `${identityText}`;
+            document.getElementById('identityType').textContent = identityText;
+            
+            // Update identity description based on category
+            const identityDescriptions = {
+                'Justice Seeker': "You're likely empathetic, principled, and focused on helping others. You value fairness and social harmony.",
+                'Victory Seeker': "You're likely ambitious, goal-oriented, and focused on personal achievement. You value success and self-improvement."
+            };
+            
+            document.getElementById('identityDescription').textContent = identityDescriptions[category] || "Your identity traits are being analyzed.";
+        }
+
+        // Retake test
+        function retakeTest() {
+            if (confirm('Are you sure you want to retake the test? Your current results will be cleared.')) {
+                localStorage.removeItem('personalityTestData');
+                localStorage.removeItem('personalityAnswers');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Show history modal
+        function showHistory() {
+            loadHistory();
+            const historyModal = new bootstrap.Modal(document.getElementById('historyModal'));
+            historyModal.show();
+        }
+
+        // Load test history from localStorage
+        function loadHistory() {
+            const historyContent = document.getElementById('historyContent');
+            const history = JSON.parse(localStorage.getItem('testHistory') || '[]');
+            
+            if (history.length === 0) {
+                historyContent.innerHTML = '<p class="text-muted text-center">No test history found. Take the test to see your results here!</p>';
+                return;
+            }
+            
+            let historyHTML = '';
+            history.forEach((item, index) => {
+                const date = new Date(item.completedAt).toLocaleDateString();
+                const time = new Date(item.completedAt).toLocaleTimeString();
+                
+                historyHTML += `
+                    <div class="history-item" onclick="loadHistoryResult(${index})">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h6 class="fw-bold mb-1">${item.personalityResult.type} - ${item.personalityResult.typeInfo.nickname}</h6>
+                                <p class="text-muted mb-1">${item.personalityResult.typeInfo.description}</p>
+                                <small class="text-muted">Completed on ${date} at ${time}</small>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <i class="fas fa-chevron-right text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            historyContent.innerHTML = historyHTML;
+        }
+
+        // Load a specific result from history
+        function loadHistoryResult(index) {
+            const history = JSON.parse(localStorage.getItem('testHistory') || '[]');
+            if (history[index]) {
+                // Save current result to history if it exists
+                const currentResult = localStorage.getItem('personalityTestData');
+                if (currentResult) {
+                    saveToHistory(JSON.parse(currentResult));
+                }
+                
+                // Load the selected result
+                localStorage.setItem('personalityTestData', JSON.stringify(history[index]));
+                location.reload();
+            }
+        }
+
+        // Save current result to history
+        function saveToHistory(testData) {
+            const history = JSON.parse(localStorage.getItem('testHistory') || '[]');
+            
+            // Check if this result already exists in history
+            const exists = history.find(item => 
+                item.personalityResult.type === testData.personalityResult.type &&
+                item.completedAt === testData.completedAt
+            );
+            
+            if (!exists) {
+                history.unshift(testData);
+                
+                // Keep only last 10 results
+                if (history.length > 10) {
+                    history.pop();
+                }
+                
+                localStorage.setItem('testHistory', JSON.stringify(history));
+            }
+        }
+
+        // Generate personality avatar
+        function generatePersonalityAvatar(type) {
+            const avatarImage = document.getElementById('avatarImage');
+            const avatarIcon = document.getElementById('avatarIcon');
+            const avatar = document.getElementById('personalityAvatar');
+            const avatarDescription = document.getElementById('avatarDescription');
+            const avatarData = getAvatarData(type);
+            
+            // Update the description
+            avatarDescription.textContent = avatarData.description;
+            
+            // Try to load the actual image first
+            const imagePath = `images/avatars/${type.toLowerCase()}.jpg`;
+            avatarImage.src = imagePath;
+            avatarImage.onload = function() {
+                // Image loaded successfully
+                avatarImage.style.display = 'block';
+                avatarIcon.style.display = 'none';
+                avatar.style.background = avatarData.gradient;
+            };
+            avatarImage.onerror = function() {
+                // Image failed to load, show icon instead
+                avatarImage.style.display = 'none';
+                avatarIcon.style.display = 'block';
+                avatarIcon.innerHTML = avatarData.emoji;
+                avatar.style.background = avatarData.gradient;
+            };
+        }
+
+        // Get avatar data for personality type
+        function getAvatarData(type) {
+            const avatarData = {
+                'JSRK': { 
+                    emoji: '🕯️', 
+                    gradient: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                    description: 'The Steady Light - A calm, glowing candle representing steady guidance and warmth'
+                },
+                'JSRB': { 
+                    emoji: '🔥', 
+                    gradient: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                    description: 'The Flare of Hope - A bright flame symbolizing passion and infectious enthusiasm'
+                },
+                'JSAK': { 
+                    emoji: '🛡️', 
+                    gradient: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+                    description: 'The Silent Guardian - A protective shield representing quiet strength and loyalty'
+                },
+                'JSAB': { 
+                    emoji: '⚡', 
+                    gradient: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
+                    description: 'The Grounded Spark - Lightning representing focused energy and dynamic bursts'
+                },
+                'JCRK': { 
+                    emoji: '💝', 
+                    gradient: 'linear-gradient(135deg, #ec4899 0%, #db2777 100%)',
+                    description: 'The Empathic Leader - A heart representing emotional leadership and empathy'
+                },
+                'JCRB': { 
+                    emoji: '💡', 
+                    gradient: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
+                    description: 'The Emotional Beacon - A lightbulb representing inspiration and emotional energy'
+                },
+                'JCAK': { 
+                    emoji: '🤔', 
+                    gradient: 'linear-gradient(135deg, #6366f1 0%, #4f46e5 100%)',
+                    description: 'The Thoughtful Idealist - A thinking face representing deep reflection and ideals'
+                },
+                'JCAB': { 
+                    emoji: '🕊️', 
+                    gradient: 'linear-gradient(135deg, #84cc16 0%, #65a30d 100%)',
+                    description: 'The Gentle Flame - A dove representing peaceful passion and gentle strength'
+                },
+                'VSRK': { 
+                    emoji: '🎯', 
+                    gradient: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+                    description: 'The Ambitious Organizer - A target representing focused goals and achievement'
+                },
+                'VSRB': { 
+                    emoji: '🚀', 
+                    gradient: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
+                    description: 'The Dynamic Achiever - A rocket representing explosive energy and success'
+                },
+                'VSAK': { 
+                    emoji: '🧮', 
+                    gradient: 'linear-gradient(135deg, #6b7280 0%, #4b5563 100%)',
+                    description: 'The Tactical Thinker - An abacus representing strategic calculation and planning'
+                },
+                'VSAB': { 
+                    emoji: '🎭', 
+                    gradient: 'linear-gradient(135deg, #a855f7 0%, #9333ea 100%)',
+                    description: 'The Quiet Competitor - A theater mask representing hidden ambition and performance'
+                },
+                'VCRK': { 
+                    emoji: '✨', 
+                    gradient: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
+                    description: 'The Intense Charmer - Sparkles representing charisma and magnetic energy'
+                },
+                'VCRB': { 
+                    emoji: '🔥', 
+                    gradient: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
+                    description: 'The Wildfire - A fierce flame representing intense passion and bold energy'
+                },
+                'VCAK': { 
+                    emoji: '🗡️', 
+                    gradient: 'linear-gradient(135deg, #374151 0%, #1f2937 100%)',
+                    description: 'The Sharp Recluse - A sword representing sharp focus and independent strength'
+                },
+                'VCAB': { 
+                    emoji: '⚡', 
+                    gradient: 'linear-gradient(135deg, #7c2d12 0%, #5c1d0f 100%)',
+                    description: 'The Unpredictable Force - Lightning representing unpredictable energy and power'
+                }
+            };
+            
+            return avatarData[type] || { 
+                emoji: '❓', 
+                gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                description: 'Unknown personality type'
+            };
+        }
+
+        // Show avatar details modal
+        function showAvatarDetails() {
+            const currentType = document.getElementById('personalityType').textContent;
+            const avatarData = getAvatarData(currentType);
+            
+            const modalContent = `
+                <div class="text-center">
+                    <div class="mb-3">
+                        <div class="personality-avatar mx-auto" style="width: 120px; height: 120px; font-size: 3rem;">
+                            <div class="avatar-icon">${avatarData.emoji}</div>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-3">${avatarData.description}</h5>
+                    <p class="text-muted">
+                        This avatar represents your unique personality traits and characteristics. 
+                        The symbol and colors are carefully chosen to reflect your inner nature.
+                    </p>
+                    <div class="mt-3">
+                        <small class="text-muted">
+                            <strong>Tip:</strong> Your avatar can help you understand your strengths and how you interact with the world.
+                        </small>
+                    </div>
+                </div>
+            `;
+            
+            // Create and show modal
+            const modal = new bootstrap.Modal(document.createElement('div'));
+            modal.element.innerHTML = `
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header bg-gradient text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <h5 class="modal-title">
+                                <i class="fas fa-user-circle me-2"></i>Your Avatar
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            ${modalContent}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal.element);
+            modal.show();
+            
+            // Clean up after modal is hidden
+            modal.element.addEventListener('hidden.bs.modal', function() {
+                document.body.removeChild(modal.element);
+            });
+        }
+
+        // Download results
+        function downloadResults() {
+            const testData = localStorage.getItem('personalityTestData');
+            const data = JSON.parse(testData);
+            
+            const resultsText = `
+Personality Type Test Results
+=============================
+
+Your Type: ${data.personalityResult.type}
+Nickname: ${data.personalityResult.typeInfo.nickname}
+Description: ${data.personalityResult.typeInfo.description}
+Category: ${data.personalityResult.typeInfo.category}
+
+Trait Breakdown:
+- Justice vs Victory: ${data.personalityResult.details.JV.winner}
+- Stability vs Chaos: ${data.personalityResult.details.SC.winner}
+- Radiator vs Absorber: ${data.personalityResult.details.RA.winner}
+- Consistency vs Burst: ${data.personalityResult.details.KB.winner}
+
+Test completed on: ${new Date(data.completedAt).toLocaleDateString()}
+
+Generated by Coreli Personality Test
+            `;
+            
+            const blob = new Blob([resultsText], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `personality-results-${data.personalityResult.type}.txt`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Share results
+        function shareResults(platform) {
+            const testData = localStorage.getItem('personalityTestData');
+            const data = JSON.parse(testData);
+            
+            const text = `I just discovered I'm a ${data.personalityResult.type} (${data.personalityResult.typeInfo.nickname}) on the Coreli Personality Test! 🧠✨`;
+            const url = window.location.href;
+            
+            let shareUrl = '';
+            
+            switch(platform) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`;
+                    break;
+            }
+            
+            if (shareUrl) {
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+            }
+        }
+
+        // Copy results link
+        function copyResults() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                // Show success message
+                const btn = document.querySelector('.share-btn.copy');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i>Copied!';
+                btn.style.background = '#10b981';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                }, 2000);
+            });
+        }
+
+        // Personality extended info for new sections
+        const personalityExtended = {
+            'JSRK': { 
+                nickname: 'The Steady Light', 
+                description: 'Justice Driven | Seeker of Stability | Radiator | Consistency Driven',
+                category: 'Justice Seeker',
+                emoji: '🕯️',
+                fullDescription: 'You are a calm and dependable source of inspiration for those around you. Your strong sense of fairness guides your actions, and your steady energy radiates warmth and positivity. People see you as a beacon of reliability and moral integrity. You prefer thoughtful, consistent effort and use your rational mind to navigate stress gracefully. Your presence comforts others and motivates them to stay on course.',
+                strengths: ['Grounded leader with strong ethics', 'Consistent and dependable energy', 'Calm under pressure, strategic problem solver'],
+                growthTip: 'Challenge yourself to occasionally embrace spontaneity and adapt to unexpected change to boost creativity.',
+                professions: ['Teacher', 'Counselor', 'Social Worker', 'Librarian', 'Mediator', 'Nurse']
+            },
+            'JSRB': { 
+                nickname: 'The Flare of Hope', 
+                description: 'Justice Driven | Seeker of Stability | Radiator | Burst Driven',
+                category: 'Justice Seeker',
+                emoji: '🔥',
+                fullDescription: 'You are passionate about justice and radiate infectious enthusiasm. Your energy comes in powerful bursts, allowing you to tackle challenges with vigor and inspire others. You thrive on meaningful action but sometimes risk burnout due to your intense pacing. Your calm approach to stress usually helps you bounce back quickly.',
+                strengths: ['Charismatic and motivational', 'Quick to take action on values', 'Resilient under stress'],
+                growthTip: 'Practice pacing yourself to maintain long-term effectiveness and avoid emotional exhaustion.',
+                professions: ['Activist', 'Motivational Speaker', 'Coach', 'Event Organizer', 'Public Relations', 'Nonprofit Leader']
+            },
+            'JSAK': { 
+                nickname: 'The Silent Guardian', 
+                description: 'Justice Driven | Seeker of Stability | Absorber | Consistency Driven',
+                category: 'Justice Seeker',
+                emoji: '🛡️',
+                fullDescription: 'Quiet yet deeply principled, you support justice through thoughtful reflection and steady effort. You prefer to listen and observe before contributing, which makes your words carry weight when you do speak. Your consistent nature helps you follow through on commitments, and you handle stress with rational calmness.',
+                strengths: ['Thoughtful and loyal', 'Steady and reliable in pursuit of goals', 'Calm problem solver'],
+                growthTip: 'Step out of your comfort zone to share your ideas more openly, so others can benefit from your insight.',
+                professions: ['Researcher', 'Analyst', 'Archivist', 'Engineer', 'Accountant', 'IT Specialist']
+            },
+            'JSAB': { 
+                nickname: 'The Grounded Spark', 
+                description: 'Justice Driven | Seeker of Stability | Absorber | Burst Driven',
+                category: 'Justice Seeker',
+                emoji: '⚡',
+                fullDescription: 'You quietly hold strong moral values but express your energy in dynamic bursts. You may be reserved socially but become deeply engaged when motivated by purpose. Your calm under stress allows you to recharge quickly between bursts of focused activity.',
+                strengths: ['Principled with focused energy', 'Calm and reflective, yet passionate when needed', 'Reliable in difficult times'],
+                growthTip: 'Balance your bursts with periods of connection to others to deepen your social support.',
+                professions: ['Writer', 'Graphic Designer', 'Programmer', 'Technician', 'Editor', 'Scientist']
+            },
+            'JCRK': { 
+                nickname: 'The Empathic Leader', 
+                description: 'Justice Driven | Chaos Creator | Radiator | Consistency Driven',
+                category: 'Justice Seeker',
+                emoji: '💝',
+                fullDescription: 'Driven by justice and empathy, you are a passionate and outspoken advocate who can inspire even in chaotic times. You radiate emotional energy consistently, even when under stress. Your deep commitment to fairness fuels your leadership and ability to connect with others on a personal level.',
+                strengths: ['Emotionally expressive and inspiring', 'Resilient through chaos', 'Strong moral compass'],
+                growthTip: 'Practice emotional regulation techniques to manage intense feelings and maintain clarity.',
+                professions: ['Therapist', 'Youth Leader', 'Human Rights Advocate', 'Teacher', 'Team Manager', 'Healthcare Worker']
+            },
+            'JCRB': { 
+                nickname: 'The Emotional Beacon', 
+                description: 'Justice Driven | Chaos Creator | Radiator | Burst Driven',
+                category: 'Justice Seeker',
+                emoji: '💡',
+                fullDescription: 'You are a fierce and emotional champion for justice who moves in powerful bursts. Your energy lights up rooms, and you tend to feel deeply and express openly. Though stress can overwhelm you, your bursts of passion motivate others to join your cause.',
+                strengths: ['Bold and charismatic', 'Intense emotional energy', 'Inspirational to others'],
+                growthTip: 'Find grounding practices to help you recover from emotional highs and avoid burnout.',
+                professions: ['Performer', 'Social Activist', 'Drama Teacher', 'Campaign Organizer', 'Creative Director']
+            },
+            'JCAK': { 
+                nickname: 'The Thoughtful Idealist', 
+                description: 'Justice Driven | Chaos Creator | Absorber | Consistency Driven',
+                category: 'Justice Seeker',
+                emoji: '🤔',
+                fullDescription: 'You pursue justice quietly but intensely, processing emotions deeply and preferring to act when truly motivated. Your steady energy helps you persist even in chaotic environments, and your thoughtful approach allows you to influence others without dominating.',
+                strengths: ['Deeply reflective and principled', 'Steady in emotional storms', 'Influential through calm presence'],
+                growthTip: 'Share your passions more openly to help others understand your vision.',
+                professions: ['Philosopher', 'Author', 'Therapist', 'Ethics Consultant', 'Historian', 'Psychologist']
+            },
+            'JCAB': { 
+                nickname: 'The Gentle Flame', 
+                description: 'Justice Driven | Chaos Creator | Absorber | Burst Driven',
+                category: 'Justice Seeker',
+                emoji: '🕊️',
+                fullDescription: 'Reserved yet passionate, you engage in bursts of activity driven by your moral compass. You may retreat socially but your fire burns bright in pursuit of your ideals. You experience stress strongly but use your introspective nature to recover.',
+                strengths: ['Intense focus when engaged', 'Deep empathy and values', 'Quiet resilience'],
+                growthTip: 'Balance your need for solitude with occasional social connection for support.',
+                professions: ['Poet', 'Indie Musician', 'Illustrator', 'Research Assistant', 'Child Therapist', 'Editor']
+            },
+            'VSRK': { 
+                nickname: 'The Ambitious Organizer', 
+                description: 'Self Victory Driven | Seeker of Stability | Radiator | Consistency Driven',
+                category: 'Victory Seeker',
+                emoji: '🎯',
+                fullDescription: 'You are goal-focused and steady, projecting confident energy that motivates others. You pursue personal victories with persistence and a calm, logical approach to challenges. Your consistency and charisma make you an effective leader.',
+                strengths: ['Persistent and confident', 'Calm strategist', 'Inspires through steady energy'],
+                growthTip: 'Remember to consider others\' needs to avoid isolating yourself.',
+                professions: ['Entrepreneur', 'Project Manager', 'Lawyer', 'Executive', 'Financial Analyst', 'Political Strategist']
+            },
+            'VSRB': { 
+                nickname: 'The Dynamic Achiever', 
+                description: 'Self Victory Driven | Seeker of Stability | Radiator | Burst Driven',
+                category: 'Victory Seeker',
+                emoji: '🚀',
+                fullDescription: 'You are a powerhouse of energy who pursues goals with intense bursts of effort. Your charismatic, confident nature draws people in, and your calm problem-solving keeps you on track despite pressure. You push hard for your success.',
+                strengths: ['High energy and focus', 'Effective under pressure', 'Confident and magnetic'],
+                growthTip: 'Develop patience to sustain long-term goals and nurture relationships.',
+                professions: ['Sales Leader', 'Startup Founder', 'Public Speaker', 'Athlete', 'Content Creator', 'PR Manager']
+            },
+            'VSAK': { 
+                nickname: 'The Tactical Thinker', 
+                description: 'Self Victory Driven | Seeker of Stability | Absorber | Consistency Driven',
+                category: 'Victory Seeker',
+                emoji: '🧮',
+                fullDescription: 'Reserved and strategic, you focus on winning through thoughtful planning and steady work. You prefer to act rather than speak and handle stress by keeping your emotions in check. You shine through your quiet determination.',
+                strengths: ['Strategic and patient', 'Emotionally controlled', 'Focused and independent'],
+                growthTip: 'Practice opening up to others to build stronger support networks.',
+                professions: ['Engineer', 'Game Designer', 'Data Analyst', 'Cybersecurity Expert', 'Architect', 'Strategist']
+            },
+            'VSAB': { 
+                nickname: 'The Quiet Competitor', 
+                description: 'Self Victory Driven | Seeker of Stability | Absorber | Burst Driven',
+                category: 'Victory Seeker',
+                emoji: '🎭',
+                fullDescription: 'You work in focused bursts toward personal success, often keeping your ambitions private. You prefer solitude and thoughtful action over socializing and handle stress by retreating into yourself until ready to act.',
+                strengths: ['Focused and driven', 'Strategic bursts of effort', 'Independent and self-reliant'],
+                growthTip: 'Engage with trusted people more often to gain perspective and encouragement.',
+                professions: ['Programmer', 'Video Editor', 'Independent Artist', 'Researcher', 'UX Designer', 'Software Tester']
+            },
+            'VCRK': { 
+                nickname: 'The Intense Charmer', 
+                description: 'Self Victory Driven | Chaos Creator | Radiator | Consistency Driven',
+                category: 'Victory Seeker',
+                emoji: '✨',
+                fullDescription: 'Bold, expressive, and ambitious, you use your emotional intensity to command attention and pursue your goals. You can handle stress with steady emotional expression and are known for your charm and drive.',
+                strengths: ['Charismatic and passionate', 'Emotionally expressive', 'Steady under stress'],
+                growthTip: 'Work on balancing emotional intensity to avoid overwhelming others.',
+                professions: ['Actor', 'Talk Show Host', 'Team Leader', 'PR Specialist', 'Creative Director', 'Motivational Coach']
+            },
+            'VCRB': { 
+                nickname: 'The Wildfire', 
+                description: 'Self Victory Driven | Chaos Creator | Radiator | Burst Driven',
+                category: 'Victory Seeker',
+                emoji: '🔥',
+                fullDescription: 'You burn bright with fierce energy and ambition, acting in rapid, powerful bursts. Your emotional expressiveness can be overwhelming but often inspires awe. Your competitive spirit drives you to take bold risks.',
+                strengths: ['Dynamic and fearless', 'Highly passionate', 'Inspires action'],
+                growthTip: 'Learn to channel your energy thoughtfully to maintain focus and relationships.',
+                professions: ['Performer', 'Influencer', 'Fashion Designer', 'Activist', 'Brand Manager', 'Athlete']
+            },
+            'VCAK': { 
+                nickname: 'The Sharp Recluse', 
+                description: 'Self Victory Driven | Chaos Creator | Absorber | Consistency Driven',
+                category: 'Victory Seeker',
+                emoji: '🗡️',
+                fullDescription: 'Independent and intense, you work quietly but fiercely toward your own success. You prefer minimal social interaction and steady routines to keep your emotions in check. Your clarity and focus come from deep inner drive.',
+                strengths: ['Highly focused and independent', 'Emotionally deep but controlled', 'Steady persistence'],
+                growthTip: 'Challenge yourself to open up occasionally to build meaningful connections.',
+                professions: ['Programmer', 'Hacker', 'Sci-Fi Writer', 'Mathematician', 'Inventor', 'Solo Entrepreneur']
+            },
+            'VCAB': { 
+                nickname: 'The Unpredictable Force', 
+                description: 'Self Victory Driven | Chaos Creator | Absorber | Burst Driven',
+                category: 'Victory Seeker',
+                emoji: '⚡',
+                fullDescription: 'You are a powerhouse of unpredictable energy, acting on impulse and strong emotion. Your social interactions are limited but intense when they happen. You follow your own path with fierce independence and passion.',
+                strengths: ['Bold and impulsive', 'Emotionally intense', 'Strong-willed and unique'],
+                growthTip: 'Practice grounding techniques to avoid burnout and increase long-term effectiveness.',
+                professions: ['Visual Artist', 'Indie Filmmaker', 'Music Producer', 'Startup Maverick', 'Experimental Researcher', 'Streetwear Designer']
+            }
+        };
+
+        function fillPersonalitySections(type) {
+            const info = personalityExtended[type] || personalityExtended['default'];
+            
+            // Fill traits summary
+            const traitsSummaryEl = document.getElementById('traitsSummary');
+            if (traitsSummaryEl) {
+                traitsSummaryEl.textContent = info.summary;
+            }
+            
+            // Fill strengths
+            const traitsStrengthsEl = document.getElementById('traitsStrengths');
+            if (traitsStrengthsEl) {
+                traitsStrengthsEl.innerHTML = info.strengths.map(s => `<li>${s}</li>`).join('');
+            }
+            
+            // Fill growth tips
+            const traitsGrowthTipsEl = document.getElementById('traitsGrowthTips');
+            if (traitsGrowthTipsEl) {
+                traitsGrowthTipsEl.innerHTML = info.growthTips.map(g => `<li>${g}</li>`).join('');
+            }
+            
+            // Fill career path
+            const careerPathEl = document.getElementById('careerPath');
+            if (careerPathEl) {
+                careerPathEl.textContent = info.career;
+            }
+            
+            // Fill career suggestions
+            const careerSuggestionsEl = document.getElementById('careerSuggestions');
+            if (careerSuggestionsEl) {
+                careerSuggestionsEl.innerHTML = info.careerSuggestions.map(c => `<li>${c}</li>`).join('');
+            }
+            
+            // Fill personal growth
+            const personalGrowthEl = document.getElementById('personalGrowth');
+            if (personalGrowthEl) {
+                personalGrowthEl.textContent = info.growth;
+            }
+            
+            // Fill relationships
+            const relationshipsEl = document.getElementById('relationships');
+            if (relationshipsEl) {
+                relationshipsEl.textContent = info.relationships;
+            }
+        }
+
+        // Load results when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadResults();
+        });
+    </script>
+</body>
+</html> 

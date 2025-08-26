@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test History - Coreli</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            --success-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --warning-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --info-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 6rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--secondary-gradient);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-link {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+            color: #fbbf24 !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: #fbbf24;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .dropdown-menu {
+            background: var(--secondary-gradient);
+            border: 1px solid #444;
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+        }
+
+        /* History Cards */
+        .history-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .history-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-gradient);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .history-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .history-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .history-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .personality-badge {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 1rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .category-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .category-justice {
+            background: var(--warning-gradient);
+            color: white;
+        }
+
+        .category-victory {
+            background: var(--success-gradient);
+            color: white;
+        }
+
+        /* Footer Base */
+    .footer {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      padding: 60px 0 30px;
+      text-align: center;
+    }
+
+    .footer h4 {
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .footer p {
+      max-width: 600px;
+      margin: 0 auto 20px;
+      opacity: 0.9;
+    }
+
+    /* Badges */
+    .footer .badge {
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 30px;
+    }
+
+    /* Social Icons */
+    .footer .social-icon {
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 20px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 8px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    .footer .social-icon:hover {
+      background: #ffd700;
+      color: #000;
+      transform: scale(1.2);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    }
+
+    /* Quick Links */
+    .footer .quick-links a {
+      display: inline-block;
+      margin: 0 12px;
+      font-size: 1rem;
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer .quick-links a:hover {
+      color: #ffd700;
+    }
+
+    /* Divider */
+    .footer hr {
+      border-color: rgba(255, 255, 255, 0.3);
+      margin: 30px auto;
+      width: 80%;
+    }
+
+    /* Bottom Text */
+    .footer-bottom {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+        /* Stats Cards */
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            margin: 1rem 0;
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.4);
+        }
+
+        .stats-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 25px;
+            border: 2px dashed #cbd5e1;
+        }
+
+        .empty-state-icon {
+            font-size: 5rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 25px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-outline-primary {
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 25px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--primary-gradient);
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary-gradient);
+            margin-top: 5rem;
+        }
+
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px) scale(1.1);
+            background: rgba(255,255,255,0.2) !important;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 4rem 0 2rem;
+            }
+            
+            .content-card {
+                padding: 2rem;
+                margin: 1rem 0;
+            }
+            
+            .history-card {
+                padding: 1.5rem;
+                margin: 1rem 0;
+            }
+            
+            .stats-card {
+                padding: 1.5rem;
+            }
+            
+            .stats-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(102, 126, 234, 0.3);
+            border-radius: 50%;
+            border-top-color: #667eea;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Desktop Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient shadow-lg d-none d-lg-block" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); z-index: 1000;">
+        <div class="container">
+            <a class="navbar-brand fw-bold animate__animated animate__fadeInLeft" href="index.html" style="color: white; font-size: 1.8rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                <i class="fas fa-brain me-2 animate__animated animate__pulse animate__infinite"></i>Coreli
+            </a>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link animate__animated animate__fadeInDown px-3" href="index.html" style="color: white; font-weight: 500; font-size: 1.1rem;">
+                            <i class="fas fa-home me-2"></i>Home
+                        </a>
+                    </li>
+                    
+                    <!-- Results Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle animate__animated animate__fadeInDown px-3 active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white; font-weight: 500; font-size: 1.1rem;">
+                            <i class="fas fa-chart-bar me-2"></i>Results
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item text-white" href="result.html"><i class="fas fa-eye me-2"></i>View My Results</a></li>
+                            <li><a class="dropdown-item text-white active" href="history.html"><i class="fas fa-history me-2"></i>Test History</a></li>
+                            <li><hr class="dropdown-divider" style="border-color: #444;"></li>
+                            <li><a class="dropdown-item text-white" href="compare.html"><i class="fas fa-balance-scale me-2"></i>Compare Types</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Personality Types Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle animate__animated animate__fadeInDown px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white; font-weight: 500; font-size: 1.1rem;">
+                            <i class="fas fa-users me-2"></i>Personality Types
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" style="min-width: 300px;">
+                            <!-- Justice Seekers -->
+                            <li><h6 class="dropdown-header text-warning"><i class="fas fa-balance-scale me-2"></i>Justice Seekers</h6></li>
+                            <li><a class="dropdown-item text-white" href="types/jsrk.html"><i class="fas fa-candle me-2"></i>The Steady Light (JSRK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/jsrb.html"><i class="fas fa-fire me-2"></i>The Flare of Hope (JSRB)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/jsak.html"><i class="fas fa-shield-alt me-2"></i>The Silent Guardian (JSAK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/jsab.html"><i class="fas fa-bolt me-2"></i>The Grounded Spark (JSAB)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/jcrk.html"><i class="fas fa-heart me-2"></i>The Empathic Leader (JCRK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/jcrb.html"><i class="fas fa-lightbulb me-2"></i>The Emotional Beacon (JCRB)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/jcak.html"><i class="fas fa-thinking me-2"></i>The Thoughtful Idealist (JCAK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/jcab.html"><i class="fas fa-dove me-2"></i>The Gentle Flame (JCAB)</a></li>
+                            
+                            <li><hr class="dropdown-divider" style="border-color: #444;"></li>
+                            
+                            <!-- Victory Seekers -->
+                            <li><h6 class="dropdown-header text-success"><i class="fas fa-trophy me-2"></i>Victory Seekers</h6></li>
+                            <li><a class="dropdown-item text-white" href="types/vsrk.html"><i class="fas fa-bullseye me-2"></i>The Ambitious Organizer (VSRK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/vsrb.html"><i class="fas fa-rocket me-2"></i>The Dynamic Achiever (VSRB)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/vsak.html"><i class="fas fa-calculator me-2"></i>The Tactical Thinker (VSAK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/vsab.html"><i class="fas fa-theater-masks me-2"></i>The Quiet Competitor (VSAB)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/vcrk.html"><i class="fas fa-sparkles me-2"></i>The Intense Charmer (VCRK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/vcrb.html"><i class="fas fa-fire me-2"></i>The Wildfire (VCRB)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/vcak.html"><i class="fas fa-sword me-2"></i>The Sharp Recluse (VCAK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/vcab.html"><i class="fas fa-bolt me-2"></i>The Unpredictable Force (VCAB)</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link animate__animated animate__fadeInDown px-3" href="about.html" style="color: white; font-weight: 500; font-size: 1.1rem;">
+                            <i class="fas fa-info-circle me-2"></i>About
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Header -->
+    <div class="d-lg-none" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding: 1rem 0; text-align: center;">
+        <a href="index.html" style="color: white; font-size: 1.5rem; font-weight: bold; text-decoration: none; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+            <i class="fas fa-brain me-2 animate__animated animate__pulse animate__infinite"></i>Coreli
+        </a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center hero-content">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInUp">
+                        <i class="fas fa-history me-3 animate__animated animate__bounceIn"></i>Test History
+                    </h1>
+                    <p class="lead mb-4 animate__animated animate__fadeInUp animate__delay-1s">
+                        Track your journey of self-discovery through your personality test results
+                    </p>
+                    <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                        <i class="fas fa-chart-line fa-2x mb-3" style="opacity: 0.8;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Stats Section -->
+        <div class="row mb-5" data-aos="fade-up">
+            <div class="col-md-4">
+                <div class="stats-card">
+                    <div class="stats-number" id="totalTests">0</div>
+                    <div class="stats-label">Total Tests</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stats-card">
+                    <div class="stats-number" id="avgScore">0%</div>
+                    <div class="stats-label">Average Score</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stats-card">
+                    <div class="stats-number" id="lastTest">-</div>
+                    <div class="stats-label">Last Test</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Content -->
+        <div class="content-card" data-aos="fade-up">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="h1 fw-bold mb-0" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    <i class="fas fa-chart-line me-3"></i>Your Test Results
+                </h2>
+                <button class="btn btn-outline-primary" onclick="clearHistory()">
+                    <i class="fas fa-trash me-2"></i>Clear History
+                </button>
+            </div>
+            
+            <div id="historyContainer">
+                <!-- Loading state -->
+                <div id="loadingState" class="text-center py-5">
+                    <div class="loading-spinner mb-3"></div>
+                    <p class="text-muted">Loading your test history...</p>
+                </div>
+            </div>
+            
+            <div id="noHistory" class="empty-state" style="display: none;">
+                <div class="empty-state-icon">
+                    <i class="fas fa-inbox"></i>
+                </div>
+                <h3 class="text-muted mb-3">No Test History Found</h3>
+                <p class="text-muted mb-4">You haven't taken any personality tests yet. Start your journey of self-discovery today!</p>
+                <a href="index.html" class="btn btn-primary btn-lg">
+                    <i class="fas fa-play me-2"></i>Take Your First Test
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <div class="d-lg-none fixed-bottom" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); border-top: 1px solid #444; z-index: 1000;">
+        <div class="row g-0">
+            <!-- Home -->
+            <div class="col-3 text-center py-2">
+                <a href="index.html" class="d-block text-white text-decoration-none mobile-nav-item">
+                    <i class="fas fa-home d-block mb-1" style="font-size: 1.2rem;"></i>
+                    <small style="font-size: 0.7rem;">Home</small>
+                </a>
+            </div>
+            
+            <!-- Results -->
+            <div class="col-3 text-center py-2">
+                <a href="#" class="d-block text-white text-decoration-none mobile-nav-item active" data-section="results">
+                    <i class="fas fa-chart-bar d-block mb-1" style="font-size: 1.2rem;"></i>
+                    <small style="font-size: 0.7rem;">Results</small>
+                </a>
+            </div>
+            
+            <!-- Personality Types -->
+            <div class="col-3 text-center py-2">
+                <a href="#" class="d-block text-white text-decoration-none mobile-nav-item" data-section="types">
+                    <i class="fas fa-users d-block mb-1" style="font-size: 1.2rem;"></i>
+                    <small style="font-size: 0.7rem;">Types</small>
+                </a>
+            </div>
+            
+            <!-- About -->
+            <div class="col-3 text-center py-2">
+                <a href="about.html" class="d-block text-white text-decoration-none mobile-nav-item">
+                    <i class="fas fa-info-circle d-block mb-1" style="font-size: 1.2rem;"></i>
+                    <small style="font-size: 0.7rem;">About</small>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Modals -->
+    <!-- Results Modal -->
+    <div class="modal fade" id="mobileResultsModal" tabindex="-1" aria-labelledby="mobileResultsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); border: 1px solid #444;">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-white" id="mobileResultsModalLabel">
+                        <i class="fas fa-chart-bar me-2"></i>Results
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-grid gap-2">
+                        <a href="result.html" class="btn btn-outline-light text-start">
+                            <i class="fas fa-eye me-2"></i>View My Results
+                        </a>
+                        <a href="history.html" class="btn btn-outline-light text-start">
+                            <i class="fas fa-history me-2"></i>Test History
+                        </a>
+                        <a href="compare.html" class="btn btn-outline-light text-start">
+                            <i class="fas fa-balance-scale me-2"></i>Compare Types
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personality Types Modal -->
+    <div class="modal fade" id="mobileTypesModal" tabindex="-1" aria-labelledby="mobileTypesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); border: 1px solid #444;">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-white" id="mobileTypesModalLabel">
+                        <i class="fas fa-users me-2"></i>Personality Types
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Justice Seekers -->
+                    <h6 class="text-warning mb-3">
+                        <i class="fas fa-balance-scale me-2"></i>Justice Seekers
+                    </h6>
+                    <div class="row g-2 mb-4">
+                        <div class="col-6">
+                            <a href="types/jsrk.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-candle me-1"></i>JSRK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jsrb.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-fire me-1"></i>JSRB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jsak.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-shield-alt me-1"></i>JSAK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jsab.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-bolt me-1"></i>JSAB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jcrk.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-heart me-1"></i>JCRK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jcrb.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-lightbulb me-1"></i>JCRB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jcak.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-thinking me-1"></i>JCAK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jcab.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-dove me-1"></i>JCAB
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Victory Seekers -->
+                    <h6 class="text-success mb-3">
+                        <i class="fas fa-trophy me-2"></i>Victory Seekers
+                    </h6>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <a href="types/vsrk.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-bullseye me-1"></i>VSRK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vsrb.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-rocket me-1"></i>VSRB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vsak.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-calculator me-1"></i>VSAK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vsab.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-theater-masks me-1"></i>VSAB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vcrk.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-sparkles me-1"></i>VCRK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vcrb.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-fire me-1"></i>VCRB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vcak.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-sword me-1"></i>VCAK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vcab.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-bolt me-1"></i>VCAB
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer class="footer text-white py-5 mt-5 text-center">
+        <div class="container">
+          
+          <!-- Brand -->
+          <div class="brand mb-3">
+            <i class="fas fa-brain fa-2x animate__animated animate__pulse animate__infinite"></i>
+            Coreli
+          </div>
+    
+          <!-- Description -->
+          <p class="description">
+            Empowering self-discovery through personality insights and psychological assessments.
+          </p>
+    
+          <!-- Badges -->
+          <div class="mb-4">
+            <span class="badge bg-light text-dark">
+              <i class="fas fa-users me-1"></i>10K+ Users
+            </span>
+            <span class="badge bg-light text-dark">
+              <i class="fas fa-star me-1"></i>4.9 Rating
+            </span>
+          </div>
+    
+          <!-- Social Links -->
+          <div class="d-flex justify-content-center gap-3 mb-4">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          </div>
+    
+          <!-- Quick Links -->
+          <div class="quick-links mb-4">
+            <a href="index.html"><i class="fas fa-home me-1"></i>Home</a>
+            <a href="about.html"><i class="fas fa-user me-1"></i>About</a>
+            <a href="history.html"><i class="fas fa-chart-line me-1"></i>Results</a>
+          </div>
+    
+          <!-- Divider -->
+          <hr class="my-4">
+    
+          <!-- Bottom -->
+          <p class="mb-0">
+            © 2025 Coreli | Made by Mohsin
+          </p>
+        </div>
+      </footer>
+      
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Mobile Navigation Handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle mobile navigation clicks
+            const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+            
+            mobileNavItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    const section = this.getAttribute('data-section');
+                    
+                    if (section === 'results') {
+                        e.preventDefault();
+                        const resultsModal = new bootstrap.Modal(document.getElementById('mobileResultsModal'));
+                        resultsModal.show();
+                    } else if (section === 'types') {
+                        e.preventDefault();
+                        const typesModal = new bootstrap.Modal(document.getElementById('mobileTypesModal'));
+                        typesModal.show();
+                    }
+                    
+                    // Add active class to clicked item
+                    mobileNavItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Load test history
+            loadTestHistory();
+        });
+
+        // Load test history from localStorage
+        function loadTestHistory() {
+            const historyContainer = document.getElementById('historyContainer');
+            const noHistory = document.getElementById('noHistory');
+            const loadingState = document.getElementById('loadingState');
+            
+            // Simulate loading delay
+            setTimeout(() => {
+                // Get all test results from localStorage
+                const testData = localStorage.getItem('personalityTestData');
+                
+                if (!testData) {
+                    loadingState.style.display = 'none';
+                    noHistory.style.display = 'block';
+                    updateStats(0, 0, '-');
+                    return;
+                }
+                
+                try {
+                    const data = JSON.parse(testData);
+                    const result = data.personalityResult;
+                    
+                    if (!result) {
+                        loadingState.style.display = 'none';
+                        noHistory.style.display = 'block';
+                        updateStats(0, 0, '-');
+                        return;
+                    }
+                    
+                    // Hide loading state
+                    loadingState.style.display = 'none';
+                    
+                    // Create history card
+                    const historyCard = document.createElement('div');
+                    historyCard.className = 'history-card animate__animated animate__fadeInUp';
+                    historyCard.innerHTML = `
+                        <div class="history-card-header">
+                            <div class="personality-badge">
+                                <i class="fas fa-user-tie me-2"></i>${result.type}
+                            </div>
+                            <div class="category-badge ${result.typeInfo.category === 'Justice Seeker' ? 'category-justice' : 'category-victory'}">
+                                <i class="fas ${result.typeInfo.category === 'Justice Seeker' ? 'fa-balance-scale' : 'fa-trophy'} me-1"></i>
+                                ${result.typeInfo.category}
+                            </div>
+                        </div>
+                        
+                        <div class="row align-items-center">
+                            <div class="col-lg-8">
+                                <h4 class="fw-bold mb-3">
+                                    <i class="fas fa-star me-2 text-warning"></i>${result.typeInfo.nickname}
+                                </h4>
+                                <p class="text-muted mb-3">${result.typeInfo.description}</p>
+                                
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <small class="text-muted">
+                                            <i class="fas fa-calendar-alt me-1"></i>
+                                            Completed: ${new Date(data.completedAt).toLocaleDateString()}
+                                        </small>
+                                    </div>
+                                    <div class="col-6">
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock me-1"></i>
+                                            ${new Date(data.completedAt).toLocaleTimeString()}
+                                        </small>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex flex-wrap gap-2">
+                                    <span class="badge bg-primary">${result.details.JV.winner === 'J' ? 'Justice' : 'Victory'}</span>
+                                    <span class="badge bg-success">${result.details.SC.winner === 'S' ? 'Stability' : 'Chaos'}</span>
+                                    <span class="badge bg-info">${result.details.RA.winner === 'R' ? 'Radiator' : 'Absorber'}</span>
+                                    <span class="badge bg-warning">${result.details.KB.winner === 'K' ? 'Consistency' : 'Burst'}</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                                <a href="result.html" class="btn btn-primary me-2">
+                                    <i class="fas fa-eye me-2"></i>View Details
+                                </a>
+                                <button class="btn btn-outline-primary" onclick="retakeTest()">
+                                    <i class="fas fa-redo me-2"></i>Retake
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    historyContainer.appendChild(historyCard);
+                    
+                    // Update stats
+                    updateStats(1, calculateAverageScore(result.scores), new Date(data.completedAt).toLocaleDateString());
+                    
+                } catch (error) {
+                    console.error('Error loading test history:', error);
+                    loadingState.style.display = 'none';
+                    noHistory.style.display = 'block';
+                    updateStats(0, 0, '-');
+                }
+            }, 1000);
+        }
+
+        // Calculate average score
+        function calculateAverageScore(scores) {
+            const total = Object.values(scores).reduce((sum, score) => sum + Math.abs(score), 0);
+            const average = total / Object.keys(scores).length;
+            return Math.round((average / 100) * 100);
+        }
+
+        // Update stats
+        function updateStats(totalTests, avgScore, lastTest) {
+            document.getElementById('totalTests').textContent = totalTests;
+            document.getElementById('avgScore').textContent = avgScore + '%';
+            document.getElementById('lastTest').textContent = lastTest;
+        }
+
+        // Clear history
+        function clearHistory() {
+            if (confirm('Are you sure you want to clear your test history? This action cannot be undone.')) {
+                localStorage.removeItem('personalityTestData');
+                location.reload();
+            }
+        }
+
+        // Retake test
+        function retakeTest() {
+            if (confirm('Are you sure you want to retake the test? This will clear your current results.')) {
+                localStorage.removeItem('personalityTestData');
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>

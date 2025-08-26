@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personality Type Test</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --agree-green: #10b981;
+            --disagree-red: #ef4444;
+            --neutral-purple: #8b5cf6;
+        }
+        
+        .question-container {
+            min-height: 350px;
+        }
+        
+        .question-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .option-item {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .option-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .option-item.agree {
+            border-color: var(--agree-green);
+        }
+        
+        .option-item.disagree {
+            border-color: var(--disagree-red);
+        }
+        
+        .option-item.neutral {
+            border-color: var(--neutral-purple);
+        }
+        
+        .option-item.selected {
+            background-color: #f3f4f6;
+        }
+        
+        .custom-checkbox {
+            width: 32px;
+            height: 32px;
+            border: 3px solid #d1d5db;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .option-item.agree .custom-checkbox {
+            border-color: var(--agree-green);
+        }
+        
+        .option-item.disagree .custom-checkbox {
+            border-color: var(--disagree-red);
+        }
+        
+        .option-item.neutral .custom-checkbox {
+            border-color: var(--neutral-purple);
+        }
+        
+        /* Hover effects */
+        .option-item.agree:hover .custom-checkbox {
+            background-color: var(--agree-green);
+            border-color: var(--agree-green);
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+        }
+        
+        .option-item.disagree:hover .custom-checkbox {
+            background-color: var(--disagree-red);
+            border-color: var(--disagree-red);
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+        }
+        
+        .option-item.neutral:hover .custom-checkbox {
+            background-color: var(--neutral-purple);
+            border-color: var(--neutral-purple);
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(139, 92, 246, 0.3);
+        }
+        
+        /* Hover tick icon */
+        .option-item:hover .tick-icon {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+        
+        .option-item.selected .custom-checkbox {
+            background-color: currentColor;
+            border-color: currentColor;
+        }
+        
+        .option-item.selected.agree .custom-checkbox {
+            background-color: var(--agree-green);
+            border-color: var(--agree-green);
+        }
+        
+        .option-item.selected.disagree .custom-checkbox {
+            background-color: var(--disagree-red);
+            border-color: var(--disagree-red);
+        }
+        
+        .option-item.selected.neutral .custom-checkbox {
+            background-color: var(--neutral-purple);
+            border-color: var(--neutral-purple);
+        }
+        
+        .tick-icon {
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            opacity: 0;
+            transition: all 0.3s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        .option-item.selected .tick-icon {
+            opacity: 1;
+        }
+        
+        /* Section labels */
+        .section-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            color: #6b7280;
+            text-align: center;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background-color: #f9fafb;
+        }
+        
+        .agree-label {
+            color: var(--agree-green);
+        }
+        
+        .neutral-label {
+            color: var(--neutral-purple);
+        }
+        
+        .disagree-label {
+            color: var(--disagree-red);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+        }
+        
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            transform: translateY(-2px);
+            color: #fbbf24 !important;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: #fbbf24;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px) scale(1.1);
+            background: rgba(255,255,255,0.2) !important;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .btn-next, .btn-prev {
+            transition: all 0.3s ease;
+        }
+        
+        .btn-next, .btn-prev {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-next:hover, .btn-prev:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .btn-next::before, .btn-prev::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-next:hover::before, .btn-prev:hover::before {
+            left: 100%;
+        }
+        
+        .gender-option {
+            border-color: #6366f1;
+        }
+        
+        .gender-option:hover {
+            border-color: #4f46e5;
+            background-color: #f8fafc;
+        }
+        
+        .gender-option.selected {
+            background-color: #e0e7ff;
+            border-color: #6366f1;
+        }
+        
+        .gender-option.selected .custom-checkbox {
+            background-color: #6366f1;
+            border-color: #6366f1;
+        }
+        
+		/* Circle Checkbox Styles */
+		.circle-checkbox {
+			display: inline-block;
+			position: relative;
+			cursor: pointer;
+			user-select: none;
+			margin: 8px;
+		}
+        /* Footer Base */
+    .footer {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      padding: 60px 0 30px;
+      text-align: center;
+    }
+
+    .footer h4 {
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .footer p {
+      max-width: 600px;
+      margin: 0 auto 20px;
+      opacity: 0.9;
+    }
+
+    /* Badges */
+    .footer .badge {
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 30px;
+    }
+
+    /* Social Icons */
+    .footer .social-icon {
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 20px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 8px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    .footer .social-icon:hover {
+      background: #ffd700;
+      color: #000;
+      transform: scale(1.2);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    }
+
+    /* Quick Links */
+    .footer .quick-links a {
+      display: inline-block;
+      margin: 0 12px;
+      font-size: 1rem;
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer .quick-links a:hover {
+      color: #ffd700;
+    }
+
+    /* Divider */
+    .footer hr {
+      border-color: rgba(255, 255, 255, 0.3);
+      margin: 30px auto;
+      width: 80%;
+    }
+
+    /* Bottom Text */
+    .footer-bottom {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+		.circle-checkbox input {
+			position: absolute;
+			opacity: 0;
+			cursor: pointer;
+			height: 0;
+			width: 0;
+		}
+		
+		.circle-checkbox .checkmark {
+			background-color: #f8fafc;
+			border: 3px solid #e2e8f0;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: all 0.25s ease;
+			position: relative;
+		}
+		
+		.circle-checkbox .checkmark::before {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: calc(var(--size, 44px) + 10px);
+			height: calc(var(--size, 44px) + 10px);
+			border-radius: 50%;
+			box-shadow: 0 0 0 8px var(--ring-color, rgba(0,0,0,0));
+			opacity: 0;
+		}
+		
+		.circle-checkbox:hover .checkmark {
+			border-color: #cbd5e1;
+			background-color: #f1f5f9;
+			transform: translateZ(0) scale(1.06);
+			box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+		}
+		
+		.circle-checkbox input:checked ~ .checkmark {
+			animation: pop 220ms ease;
+		}
+		
+		@keyframes pop {
+			0% { transform: scale(1); }
+			50% { transform: scale(1.08); }
+			100% { transform: scale(1); }
+		}
+		
+		@keyframes ring {
+			0% { opacity: 0.35; transform: translate(-50%, -50%) scale(0.85); }
+			100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
+		}
+		
+		.circle-checkbox input:checked ~ .checkmark::before {
+			animation: ring 420ms ease-out;
+		}
+		
+		.circle-checkbox input:checked ~ .checkmark::after {
+			content: '';
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: var(--tick, 16px);
+			height: var(--tick, 16px);
+			border: solid #fff;
+			border-width: 0 var(--tick-thickness, 3px) var(--tick-thickness, 3px) 0;
+			transform: translate(-50%, -50%) rotate(45deg);
+		}
+		
+		.circle-checkbox.agree input:checked ~ .checkmark {
+			background-color: #10b981;
+			border-color: #10b981;
+			box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+		}
+		
+		.circle-checkbox.neutral input:checked ~ .checkmark {
+			background-color: #8b5cf6;
+			border-color: #8b5cf6;
+			box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+		}
+		
+		.circle-checkbox.disagree input:checked ~ .checkmark {
+			background-color: #ef4444;
+			border-color: #ef4444;
+			box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+		}
+		
+		/* Answered state - reduced saturation */
+		.circle-checkbox.answered {
+			filter: saturate(0.6);
+			opacity: 0.8;
+			transition: all 0.3s ease;
+		}
+		
+		.circle-checkbox.answered:hover {
+			filter: saturate(1);
+			opacity: 1;
+		}
+		
+		/* Question card answered state */
+		.question-card.answered {
+			filter: saturate(0.7);
+			opacity: 0.9;
+			transition: all 0.3s ease;
+		}
+		
+		.question-card.answered:hover {
+			filter: saturate(1);
+			opacity: 1;
+		}
+		
+		.circle-checkbox.gender-option .checkmark {
+			height: 60px;
+			width: 60px;
+		}
+		
+		.circle-checkbox.gender-option .option-text {
+			max-width: 80px;
+			font-size: 0.75rem;
+		}
+		
+		.circle-checkbox.gender-option input:checked ~ .checkmark {
+			background-color: #6366f1;
+			border-color: #6366f1;
+			box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Responsive Design for Mobile (360x800) */
+        @media (max-width: 480px) {
+            .display-4 {
+                font-size: 2rem !important;
+            }
+            
+            .lead {
+                font-size: 1rem !important;
+            }
+            
+            .card-body {
+                padding: 1.5rem !important;
+            }
+            
+            .question-container {
+                min-height: 300px;
+            }
+            
+            .question-card {
+                padding: 1.5rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            .circle-checkbox {
+                margin: 4px !important;
+            }
+            
+            .circle-checkbox .checkmark {
+                height: 35px !important;
+                width: 35px !important;
+            }
+            
+            .circle-checkbox.gender-option .checkmark {
+                height: 50px !important;
+                width: 50px !important;
+            }
+            
+            .circle-checkbox.gender-option .option-text {
+                font-size: 0.7rem;
+                max-width: 60px;
+            }
+            
+            .btn-next, .btn-prev {
+                width: 100%;
+                margin-bottom: 0.5rem;
+                padding: 10px 20px !important;
+            }
+            
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.2rem;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+                padding: 0.5rem 0.75rem !important;
+            }
+            
+            .progress {
+                height: 8px !important;
+            }
+            
+            .fs-5 {
+                font-size: 1rem !important;
+            }
+            
+            .h4 {
+                font-size: 1.25rem !important;
+            }
+        }
+
+        /* Responsive Design for Desktop (1920x1080) */
+        @media (min-width: 1920px) {
+            .container {
+                max-width: 1600px;
+            }
+            
+            .display-4 {
+                font-size: 4rem !important;
+            }
+            
+            .lead {
+                font-size: 1.5rem !important;
+            }
+            
+            .card-body {
+                padding: 4rem !important;
+            }
+            
+            .question-container {
+                min-height: 500px;
+            }
+            
+            .question-card {
+                padding: 3rem !important;
+                margin-bottom: 3rem !important;
+            }
+            
+            .circle-checkbox {
+                margin: 12px !important;
+            }
+            
+            .circle-checkbox .checkmark {
+                height: 60px !important;
+                width: 60px !important;
+            }
+            
+            .circle-checkbox.gender-option .checkmark {
+                height: 80px !important;
+                width: 80px !important;
+            }
+            
+            .circle-checkbox.gender-option .option-text {
+                font-size: 1rem;
+                max-width: 120px;
+            }
+            
+            .btn-next, .btn-prev {
+                padding: 1.5rem 3rem;
+                font-size: 1.2rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.8rem;
+            }
+            
+            .nav-link {
+                font-size: 1.2rem;
+                padding: 1rem 1.5rem !important;
+            }
+            
+            .progress {
+                height: 16px !important;
+            }
+            
+            .fs-5 {
+                font-size: 1.5rem !important;
+            }
+            
+            .h4 {
+                font-size: 2rem !important;
+            }
+        }
+
+        /* Tablet Responsive */
+        @media (min-width: 481px) and (max-width: 1024px) {
+            .circle-checkbox .checkmark {
+                height: 45px !important;
+                width: 45px !important;
+            }
+            
+            .circle-checkbox.gender-option .checkmark {
+                height: 65px !important;
+                width: 65px !important;
+            }
+            
+            .circle-checkbox.gender-option .option-text {
+                font-size: 0.8rem;
+                max-width: 90px;
+            }
+            
+            .btn-next, .btn-prev {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Mobile Bottom Navigation Styles */
+        .mobile-nav-item {
+            transition: all 0.3s ease;
+            padding: 8px 4px;
+            border-radius: 8px;
+            margin: 2px;
+        }
+
+        .mobile-nav-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            color: #fbbf24 !important;
+        }
+
+        .mobile-nav-item.active {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24 !important;
+        }
+
+        /* Add bottom padding to main content on mobile to account for fixed bottom nav */
+        @media (max-width: 991px) {
+            body {
+                padding-bottom: 80px;
+            }
+            
+            .footer {
+                margin-bottom: 80px;
+            }
+        }
+        navbar{
+            background-color: #000 !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Desktop Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-lg d-none d-lg-block" style="background-color: #1e173f; z-index: 1000;">
+        <div class="container">
+      
+          <!-- Brand -->
+          <a class="navbar-brand fw-bold animate__animated animate__fadeInLeft" href="#" 
+             style="color: white; font-size: 1.8rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+            <i class="fas fa-brain me-2 animate__animated animate__pulse animate__infinite"></i>Coreli
+          </a>
+      
+          <!-- Collapse -->
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+      
+              <!-- Home -->
+              <li class="nav-item">
+                <a class="nav-link animate__animated animate__fadeInDown px-3" href="#" 
+                   style="color: white; font-weight: 500; font-size: 1.1rem;">
+                  <i class="fas fa-home me-2"></i>Home
+                </a>
+              </li>
+      
+              <!-- Results Dropdown -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle animate__animated animate__fadeInDown px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" 
+                   style="color: white; font-weight: 500; font-size: 1.1rem;">
+                  <i class="fas fa-chart-bar me-2"></i>Results
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #000; border: 1px solid #444;">
+                  <li><a class="dropdown-item text-white" href="result.html"><i class="fas fa-eye me-2"></i>View My Results</a></li>
+                  <li><a class="dropdown-item text-white" href="history.html"><i class="fas fa-history me-2"></i>Test History</a></li>
+                  <li><hr class="dropdown-divider" style="border-color: #444;"></li>
+                  <li><a class="dropdown-item text-white" href="compare.html"><i class="fas fa-balance-scale me-2"></i>Compare Types</a></li>
+                </ul>
+              </li>
+      
+              <!-- Personality Types Dropdown -->
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle animate__animated animate__fadeInDown px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" 
+                   style="color: white; font-weight: 500; font-size: 1.1rem;">
+                  <i class="fas fa-users me-2"></i>Personality Types
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark" style="background-color: #000; border: 1px solid #444; min-width: 300px;">
+                  
+                  <!-- Justice Seekers -->
+                  <li><h6 class="dropdown-header text-warning"><i class="fas fa-balance-scale me-2"></i>Justice Seekers</h6></li>
+                  <li><a class="dropdown-item text-white" href="types/jsrk.html"><i class="fas fa-candle me-2"></i>The Steady Light (JSRK)</a></li>
+                  <li><a class="dropdown-item text-white" href="types/jsrb.html"><i class="fas fa-fire me-2"></i>The Flare of Hope (JSRB)</a></li>
+                  <li><a class="dropdown-item text-white" href="types/jsak.html"><i class="fas fa-shield-alt me-2"></i>The Silent Guardian (JSAK)</a></li>
+                  <li><a class="dropdown-item text-white" href="types/jsab.html"><i class="fas fa-bolt me-2"></i>The Grounded Spark (JSAB)</a></li>
+                  <li><a class="dropdown-item text-white" href="types/jcrk.html"><i class="fas fa-heart me-2"></i>The Empathic Leader (JCRK)</a></li>
+                  <li><a class="dropdown-item text-white" href="types/jcrb.html"><i class="fas fa-lightbulb me-2"></i>The Emotional Beacon (JCRB)</a></li>
+                  <li><a class="dropdown-item text-white" href="types/jcak.html"><i class="fas fa-brain me-2"></i>The Thoughtful Idealist (JCAK)</a></li>
+                  <li><a class="dropdown-item text-white" href="types/jcab.html"><i class="fas fa-dove me-2"></i>The Gentle Flame (JCAB)</a></li>
+      
+                  <li><hr class="dropdown-divider" style="border-color: #444;"></li>
+      
+                  <!-- Victory Seekers -->
+                  <li><h6 class="dropdown-header text-success"><i class="fas fa-trophy me-2"></i>Victory Seekers</h6></li>
+                  <li><a class="dropdown-item text-white" href="types/vsrk.html"><i class="fas fa-bullseye me-2"></i>The Ambitious Organizer (VSRK)</a></li>
+                  <li><a class="dropdown-item text-white" href="types/vsrb.html"><i class="fas fa-rocket me-2"></i>The Dynamic Achiever (VSRB)</a></li>
+                  <li><a class="dropdown-item text-white" href="types/vsak.html"><i class="fas fa-calculator me-2"></i>The Tactical Thinker (VSAK)</a></li>
+                  <li><a class="dropdown-item text-white" href="types/vsab.html"><i class="fas fa-theater-masks me-2"></i>The Quiet Competitor (VSAB)</a></li>
+                  <li><a class="dropdown-item text-white" href="types/vcrk.html"><i class="fas fa-bolt me-2"></i>The Intense Charmer (VCRK)</a></li>
+                  <li><a class="dropdown-item text-white" href="types/vcrb.html"><i class="fas fa-fire me-2"></i>The Wildfire (VCRB)</a></li>
+                  <li><a class="dropdown-item text-white" href="types/vcak.html"><i class="fas fa-sword me-2"></i>The Sharp Recluse (VCAK)</a></li>
+                  <li><a class="dropdown-item text-white" href="types/vcab.html"><i class="fas fa-bolt me-2"></i>The Unpredictable Force (VCAB)</a></li>
+                </ul>
+              </li>
+      
+              <!-- About -->
+              <li class="nav-item">
+                <a class="nav-link animate__animated animate__fadeInDown px-3" href="about.html" 
+                   style="color: white; font-weight: 500; font-size: 1.1rem;">
+                  <i class="fas fa-info-circle me-2"></i>About
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      
+
+    <!-- Mobile Header -->
+    <div class="d-lg-none" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding: 1rem 0; text-align: center;">
+        <a href="#" style="color: white; font-size: 1.5rem; font-weight: bold; text-decoration: none; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+            <i class="fas fa-brain me-2 animate__animated animate__pulse animate__infinite"></i>Coreli
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Header -->
+        <div class="text-center mb-5 animate__animated animate__fadeInUp" data-aos="fade-up">
+            <h1 class="display-4 fw-bold mb-3" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                <i class="fas fa-user-tie me-3 animate__animated animate__bounceIn animate__delay-1s"></i>Personality Type Test
+            </h1>
+            <p class="lead text-muted animate__animated animate__fadeInUp animate__delay-1s">Discover your personality type with our comprehensive assessment</p>
+            
+            <!-- Progress Bar -->
+            <div class="progress mt-4 animate__animated animate__fadeInUp animate__delay-2s" style="height: 10px; width: 90%; margin: 0 auto; border-radius: 10px; background: #e2e8f0;">
+                <div class="progress-bar animate__animated animate__fadeInLeft" role="progressbar" id="progressBar" style="width: 90%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px;"></div>
+            </div>
+            <small class="text-muted mt-3 d-block animate__animated animate__fadeInUp animate__delay-2s">
+                <i class="fas fa-chart-line me-1"></i>Question <span id="currentQuestion" class="fw-bold">1</span> of 40
+            </small>
+        </div>
+
+        <!-- Question Form -->
+        <div class="row justify-content-center" style="max-width: 1200px; margin: 0 auto;">
+            <div class="col-12">
+                <div class="card shadow-lg border-0 animate__animated animate__zoomIn" data-aos="zoom-in" style="border-radius: 25px; overflow: hidden;">
+                    <div class="card-body p-4">
+                        <form id="personalityForm">
+                            <div id="questionsContainer" class="question-container">
+                                <!-- Questions will be dynamically generated here -->
+                            </div>
+                            
+                            <!-- Navigation Buttons -->
+                            <div class="d-flex justify-content-center align-items-center mt-4">
+                                <button type="button" class="btn btn-outline-secondary btn-prev animate__animated animate__fadeInLeft me-3" id="prevBtn" style="display: none; border-radius: 25px; padding: 12px 25px;">
+                                    <i class="fas fa-arrow-left me-2"></i>Previous
+                                </button>
+                                
+                                <button type="button" class="btn btn-primary btn-next animate__animated animate__fadeInRight" id="nextBtn" style="border-radius: 25px; padding: 12px 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
+                                    Next<i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <div class="d-lg-none fixed-bottom" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); border-top: 1px solid #444; z-index: 1000;">
+        <div class="row g-0">
+            <!-- Home -->
+            <div class="col-3 text-center py-2">
+                <a href="#" class="d-block text-white text-decoration-none mobile-nav-item" data-section="home">
+                    <i class="fas fa-home d-block mb-1" style="font-size: 1.2rem;"></i>
+                    <small style="font-size: 0.7rem;">Home</small>
+                </a>
+            </div>
+            
+            <!-- Results -->
+            <div class="col-3 text-center py-2">
+                <a href="#" class="d-block text-white text-decoration-none mobile-nav-item" data-section="results">
+                    <i class="fas fa-chart-bar d-block mb-1" style="font-size: 1.2rem;"></i>
+                    <small style="font-size: 0.7rem;">Results</small>
+                </a>
+            </div>
+            
+            <!-- Personality Types -->
+            <div class="col-3 text-center py-2">
+                <a href="#" class="d-block text-white text-decoration-none mobile-nav-item" data-section="types">
+                    <i class="fas fa-users d-block mb-1" style="font-size: 1.2rem;"></i>
+                    <small style="font-size: 0.7rem;">Types</small>
+                </a>
+            </div>
+            
+            <!-- About -->
+            <div class="col-3 text-center py-2">
+                <a href="about.html" class="d-block text-white text-decoration-none mobile-nav-item">
+                    <i class="fas fa-info-circle d-block mb-1" style="font-size: 1.2rem;"></i>
+                    <small style="font-size: 0.7rem;">About</small>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Modals -->
+    <!-- Results Modal -->
+    <div class="modal fade" id="mobileResultsModal" tabindex="-1" aria-labelledby="mobileResultsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); border: 1px solid #444;">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-white" id="mobileResultsModalLabel">
+                        <i class="fas fa-chart-bar me-2"></i>Results
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-grid gap-2">
+                        <a href="result.html" class="btn btn-outline-light text-start">
+                            <i class="fas fa-eye me-2"></i>View My Results
+                        </a>
+                        <a href="history.html" class="btn btn-outline-light text-start">
+                            <i class="fas fa-history me-2"></i>Test History
+                        </a>
+                        <a href="compare.html" class="btn btn-outline-light text-start">
+                            <i class="fas fa-balance-scale me-2"></i>Compare Types
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personality Types Modal -->
+    <div class="modal fade" id="mobileTypesModal" tabindex="-1" aria-labelledby="mobileTypesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); border: 1px solid #444;">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-white" id="mobileTypesModalLabel">
+                        <i class="fas fa-users me-2"></i>Personality Types
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Justice Seekers -->
+                    <h6 class="text-warning mb-3">
+                        <i class="fas fa-balance-scale me-2"></i>Justice Seekers
+                    </h6>
+                    <div class="row g-2 mb-4">
+                        <div class="col-6">
+                            <a href="types/jsrk.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-candle me-1"></i>JSRK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jsrb.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-fire me-1"></i>JSRB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jsak.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-shield-alt me-1"></i>JSAK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jsab.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-bolt me-1"></i>JSAB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jcrk.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-heart me-1"></i>JCRK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jcrb.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-lightbulb me-1"></i>JCRB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jcak.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-thinking me-1"></i>JCAK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jcab.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-dove me-1"></i>JCAB
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Victory Seekers -->
+                    <h6 class="text-success mb-3">
+                        <i class="fas fa-trophy me-2"></i>Victory Seekers
+                    </h6>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <a href="types/vsrk.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-bullseye me-1"></i>VSRK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vsrb.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-rocket me-1"></i>VSRB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vsak.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-calculator me-1"></i>VSAK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vsab.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-theater-masks me-1"></i>VSAB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vcrk.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-sparkles me-1"></i>VCRK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vcrb.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-fire me-1"></i>VCRB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vcak.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-sword me-1"></i>VCAK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vcab.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-bolt me-1"></i>VCAB
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer text-white py-5 mt-5 text-center">
+        <div class="container">
+          
+          <!-- Brand -->
+          <div class="brand mb-3">
+            <i class="fas fa-brain fa-2x animate__animated animate__pulse animate__infinite"></i>
+            Coreli
+          </div>
+    
+          <!-- Description -->
+          <p class="description">
+            Empowering self-discovery through personality insights and psychological assessments.
+          </p>
+    
+          <!-- Badges -->
+          <div class="mb-4">
+            <span class="badge bg-light text-dark">
+              <i class="fas fa-users me-1"></i>10K+ Users
+            </span>
+            <span class="badge bg-light text-dark">
+              <i class="fas fa-star me-1"></i>4.9 Rating
+            </span>
+          </div>
+    
+          <!-- Social Links -->
+          <div class="d-flex justify-content-center gap-3 mb-4">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          </div>
+    
+          <!-- Quick Links -->
+          <div class="quick-links mb-4">
+            <a href="index.html"><i class="fas fa-home me-1"></i>Home</a>
+            <a href="about.html"><i class="fas fa-user me-1"></i>About</a>
+            <a href="history.html"><i class="fas fa-chart-line me-1"></i>Results</a>
+          </div>
+    
+          <!-- Divider -->
+          <hr class="my-4">
+    
+          <!-- Bottom -->
+          <p class="mb-0">
+            © 2025 Coreli | Made by Mohsin
+          </p>
+        </div>
+      </footer>
+      
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Personality Type Questions with trait mapping
+        const personalityQuestions = [
+            // Justice (J) / Victory (V) - Questions 1-10
+            { text: "I prioritize fairness and justice over personal success.", trait: "JV", direction: "J" },
+            { text: "I believe in helping others achieve their potential.", trait: "JV", direction: "J" },
+            { text: "I make decisions based on moral principles.", trait: "JV", direction: "J" },
+            { text: "I focus on my own goals and achievements.", trait: "JV", direction: "V" },
+            { text: "I value cooperation over competition.", trait: "JV", direction: "J" },
+            { text: "I am driven by personal ambition and success.", trait: "JV", direction: "V" },
+            { text: "I stand up for what I believe is right.", trait: "JV", direction: "J" },
+            { text: "I prefer to win and be the best.", trait: "JV", direction: "V" },
+            { text: "I consider the impact on others when making choices.", trait: "JV", direction: "J" },
+            { text: "I am motivated by personal recognition and achievement.", trait: "JV", direction: "V" },
+            
+            // Stability (S) / Chaos (C) - Questions 11-20
+            { text: "I prefer predictable routines and stability.", trait: "SC", direction: "S" },
+            { text: "I enjoy change and unexpected challenges.", trait: "SC", direction: "C" },
+            { text: "I like to maintain order and structure.", trait: "SC", direction: "S" },
+            { text: "I thrive in dynamic, changing environments.", trait: "SC", direction: "C" },
+            { text: "I value consistency and reliability.", trait: "SC", direction: "S" },
+            { text: "I find routine boring and limiting.", trait: "SC", direction: "C" },
+            { text: "I prefer to plan ahead and avoid surprises.", trait: "SC", direction: "S" },
+            { text: "I enjoy taking risks and embracing uncertainty.", trait: "SC", direction: "C" },
+            { text: "I like to keep things organized and predictable.", trait: "SC", direction: "S" },
+            { text: "I adapt quickly to new and unexpected situations.", trait: "SC", direction: "C" },
+            
+            // Radiator (R) / Absorber (A) - Questions 21-30
+            { text: "I naturally energize and inspire those around me.", trait: "RA", direction: "R" },
+            { text: "I prefer to observe and take in information quietly.", trait: "RA", direction: "A" },
+            { text: "I am often the life of the party.", trait: "RA", direction: "R" },
+            { text: "I listen more than I speak in group settings.", trait: "RA", direction: "A" },
+            { text: "I easily express my emotions and enthusiasm.", trait: "RA", direction: "R" },
+            { text: "I process my thoughts internally before sharing.", trait: "RA", direction: "A" },
+            { text: "I naturally draw people to me.", trait: "RA", direction: "R" },
+            { text: "I prefer to work independently and quietly.", trait: "RA", direction: "A" },
+            { text: "I am comfortable being the center of attention.", trait: "RA", direction: "R" },
+            { text: "I observe others' behavior and reactions carefully.", trait: "RA", direction: "A" },
+            
+            // Consistency (K) / Burst (B) - Questions 31-40
+            { text: "I prefer steady, consistent effort over intense bursts.", trait: "KB", direction: "K" },
+            { text: "I work in focused, intense periods of activity.", trait: "KB", direction: "B" },
+            { text: "I maintain a steady pace in my work.", trait: "KB", direction: "K" },
+            { text: "I am most productive in short, intense sessions.", trait: "KB", direction: "B" },
+            { text: "I like to build habits and routines.", trait: "KB", direction: "K" },
+            { text: "I prefer to work when I feel motivated and inspired.", trait: "KB", direction: "B" },
+            { text: "I can work consistently even when not motivated.", trait: "KB", direction: "K" },
+            { text: "I need breaks between periods of intense work.", trait: "KB", direction: "B" },
+            { text: "I prefer gradual progress over dramatic breakthroughs.", trait: "KB", direction: "K" },
+            { text: "I achieve more through passionate, focused bursts.", trait: "KB", direction: "B" }
+        ];
+
+        // Gender question for the last set
+        const genderQuestion = "What is your gender?";
+
+        let currentQuestionIndex = 0;
+        let answers = {};
+
+
+        // Initialize the test
+        function initTest() {
+            displayQuestions();
+            updateProgress();
+        }
+
+        // Display current set of questions
+        function displayQuestions() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+            
+            const startIdx = currentQuestionIndex;
+            const endIdx = Math.min(startIdx + 5, personalityQuestions.length);
+            
+            for (let i = startIdx; i < endIdx; i++) {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'mb-5 animate__animated animate__fadeIn';
+                questionDiv.style.animationDelay = `${(i - startIdx) * 0.1}s`;
+                
+                // Check if this is the last set and the last question should be gender
+                if (startIdx + 5 >= personalityQuestions.length && i === endIdx - 1) {
+                    questionDiv.innerHTML = `
+                        <div class="question-card animate__animated animate__fadeInUp" style="animation-delay: ${(i - startIdx) * 0.2}s;">
+                            <h4 class="mb-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                                <i class="fas fa-venus-mars me-2 animate__animated animate__bounceIn"></i>
+                                Question ${i + 1}
+                            </h4>
+                            <p class="fs-5 mb-4 text-dark">${genderQuestion}</p>
+                            
+                            <div class="options-container">
+                                ${generateGenderOptions()}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    const trait = personalityQuestions[i].trait;
+                    const traitNames = {
+                        'JV': 'Justice vs Victory',
+                        'SC': 'Stability vs Chaos',
+                        'RA': 'Radiator vs Absorber',
+                        'KB': 'Consistency vs Burst'
+                    };
+                    
+                    questionDiv.innerHTML = `
+                        <div class="question-card animate__animated animate__fadeInUp" style="animation-delay: ${(i - startIdx) * 0.2}s;">
+                            <h4 class="mb-4" style=" font-size:20px; text-align:center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                                <i class="fas fa-question-circle me-2 animate__animated animate__bounceIn"></i>
+                                Question ${i + 1}
+                            </h4>
+                            <p class="fs-5 mb-4 text-center text-dark">${personalityQuestions[i].text}</p>
+                            
+                            <div class="options-container">
+                                ${generateOptions(i)}
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                container.appendChild(questionDiv);
+            }
+            
+            // Add event listeners to options
+            addOptionListeners();
+            
+            // Update answered states for displayed questions
+            for (let i = startIdx; i < endIdx; i++) {
+                if (answers[i] !== undefined) {
+                    updateQuestionAnsweredState(i, true);
+                }
+            }
+            
+            // Update navigation buttons
+            updateNavigationButtons();
+        }
+
+        // Generate options for each question
+        function generateOptions(questionIndex) {
+            const options = [
+                { value: 100, class: 'agree', size: 'lg' },
+                { value: 60, class: 'agree', size: 'md' },
+                { value: 30, class: 'agree', size: 'sm' },
+                { value: 0, class: 'neutral', size: 'xs' },
+                { value: -30, class: 'disagree', size: 'sm' },
+                { value: -60, class: 'disagree', size: 'md' },
+                { value: -100, class: 'disagree', size: 'lg' }
+            ];
+            
+            return `
+				<div style="display:flex; align-items:center; justify-content:space-between; gap:4px;">
+					<span style="min-width:60px; color:#10b981; font-weight:1000; font-size:30px; margin-left:70px; margin-right:auto;  align-items:center">Agree</span>
+					<div style="display:flex; align-items:center; gap:12px; flex:1; justify-content:center;">
+						${options.map((option, idx) => {
+							const sizeMap = { xs: 40, sm: 50, md: 60, lg: 74 };
+							const tickMap = { xs: 16, sm: 20, md: 24, lg: 28 };
+							const thickMap = { xs: 2, sm: 3, md: 3, lg: 4 };
+							const s = sizeMap[option.size];
+							const isSelected = answers[questionIndex] === option.value;
+							return `
+								<label class="circle-checkbox ${option.class} ${isSelected ? 'selected' : ''}" 
+								       data-question="${questionIndex}" data-value="${option.value}"
+								       style="display:inline-block; text-align:center; flex-shrink:0; --size:${s}px; --tick:${tickMap[option.size]}px; --tick-thickness:${thickMap[option.size]}px;">
+									<input type="checkbox" ${isSelected ? 'checked' : ''}>
+									<span class="checkmark" style="height:${s}px; width:${s}px;"></span>
+								</label>
+							`;
+						}).join('')}
+                                    </div>
+					<span style="min-width:80px;  color:#ef4444; font-weight:1000; font-size:30px; margin-left:auto; margin-right:70px; ">Disagree</span>
+                </div>`;
+        }
+
+        // Generate gender options
+        function generateGenderOptions() {
+            const genderOptions = [
+                { text: 'Male', value: 'male', icon: 'fas fa-mars' },
+                { text: 'Female', value: 'female', icon: 'fas fa-venus' },
+                { text: 'Prefer not to say', value: 'prefer-not-to-say', icon: 'fas fa-user' }
+            ];
+            
+            return `<div class="row">
+                ${genderOptions.map(option => `
+                    <div class="col-6 col-md-3 mb-3">
+                        <label class="circle-checkbox gender-option ${answers['gender'] === option.value ? 'selected' : ''}" 
+                             data-question="gender" data-value="${option.value}">
+                            <input type="checkbox" ${answers['gender'] === option.value ? 'checked' : ''}>
+                            <span class="checkmark"></span>
+                            <div class="option-text">
+                                <i class="${option.icon} me-1"></i>${option.text}
+                                </div>
+                        </label>
+                    </div>
+                `).join('')}
+            </div>`;
+        }
+
+        // Add event listeners to options
+        function addOptionListeners() {
+            document.querySelectorAll('.circle-checkbox input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const questionIndex = parseInt(this.closest('.circle-checkbox').dataset.question);
+                    const value = parseInt(this.closest('.circle-checkbox').dataset.value);
+                    const wasAnswered = answers[questionIndex] !== undefined;
+                    
+                    // Uncheck all other checkboxes for this question
+                    document.querySelectorAll(`[data-question="${questionIndex}"] input[type="checkbox"]`).forEach(cb => {
+                        cb.checked = false;
+                    });
+                    
+                    // Check the current checkbox
+                    this.checked = true;
+                    
+                    // Update visual selection
+                    document.querySelectorAll(`[data-question="${questionIndex}"]`).forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.closest('.circle-checkbox').classList.add('selected');
+                    
+                    // Save answer
+                    answers[questionIndex] = value;
+                    
+                    // Update answered state for the question
+                    updateQuestionAnsweredState(questionIndex, true);
+                    
+                    // Auto-advance to next question if not re-answering
+                    if (!wasAnswered) {
+                        setTimeout(() => {
+                            autoAdvanceToNextQuestion();
+                        }, 800); // 800ms delay for user to see the selection
+                    }
+                });
+            });
+            
+            // Add click handlers for re-answering (reset saturation)
+            document.querySelectorAll('.circle-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('click', function() {
+                    const questionIndex = parseInt(this.dataset.question);
+                    if (answers[questionIndex] !== undefined) {
+                        // Reset saturation when clicking on an answered question
+                        updateQuestionAnsweredState(questionIndex, false);
+                    }
+                });
+            });
+        }
+
+        // Update navigation buttons
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            // Show/hide previous button
+            if (currentQuestionIndex > 0) {
+                prevBtn.style.display = 'block';
+                prevBtn.classList.add('animate__fadeInLeft');
+            } else {
+                prevBtn.style.display = 'none';
+            }
+            
+            // Update next button
+            if (currentQuestionIndex + 5 >= personalityQuestions.length) {
+                nextBtn.innerHTML = 'Finish Test<i class="fas fa-check ms-2"></i>';
+                nextBtn.className = 'btn btn-success btn-next animate__animated animate__fadeInRight';
+                nextBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+            } else {
+                nextBtn.innerHTML = 'Next<i class="fas fa-arrow-right ms-2"></i>';
+                nextBtn.className = 'btn btn-primary btn-next animate__animated animate__fadeInRight';
+                nextBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            }
+        }
+        
+        // Update question answered state
+        function updateQuestionAnsweredState(questionIndex, isAnswered) {
+            const questionCard = document.querySelector(`[data-question="${questionIndex}"]`).closest('.question-card');
+            const checkboxes = document.querySelectorAll(`[data-question="${questionIndex}"]`);
+            
+            if (isAnswered) {
+                questionCard.classList.add('answered');
+                checkboxes.forEach(checkbox => {
+                    checkbox.classList.add('answered');
+                });
+            } else {
+                questionCard.classList.remove('answered');
+                checkboxes.forEach(checkbox => {
+                    checkbox.classList.remove('answered');
+                });
+            }
+        }
+        
+        // Auto-advance to next question
+        function autoAdvanceToNextQuestion() {
+            const startIdx = currentQuestionIndex;
+            const endIdx = Math.min(startIdx + 5, personalityQuestions.length);
+            let allCurrentAnswered = true;
+            
+            // Check if all questions on current page are answered
+            for (let i = startIdx; i < endIdx; i++) {
+                if (answers[i] === undefined) {
+                    allCurrentAnswered = false;
+                    break;
+                }
+            }
+            
+            if (allCurrentAnswered && currentQuestionIndex + 5 < personalityQuestions.length) {
+                // Auto-advance to next page
+                setTimeout(() => {
+                    currentQuestionIndex += 5;
+                    displayQuestions();
+                    updateProgress();
+                    
+                    // Scroll to top smoothly
+                    const formEl = document.getElementById('personalityForm');
+                    if (formEl && typeof formEl.scrollIntoView === 'function') {
+                        formEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }, 1000); // 1 second delay for better UX
+            }
+        }
+        
+        // Get current questions being displayed
+        function getCurrentQuestions() {
+            const startIdx = currentQuestionIndex;
+            const endIdx = Math.min(startIdx + 5, personalityQuestions.length);
+            const questions = [];
+            for (let i = startIdx; i < endIdx; i++) {
+                questions.push(i);
+            }
+            return questions;
+        }
+
+        // Next button handler
+        document.getElementById('nextBtn').addEventListener('click', function() {
+            if (currentQuestionIndex + 5 >= personalityQuestions.length) {
+                // Finish test
+                finishTest();
+            } else {
+                // Go to next set
+                currentQuestionIndex += 5;
+                displayQuestions();
+                updateProgress();
+                // Scroll to top of form
+                const formEl = document.getElementById('personalityForm');
+                if (formEl && typeof formEl.scrollIntoView === 'function') {
+                    formEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        });
+
+        // Previous button handler
+        document.getElementById('prevBtn').addEventListener('click', function() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex = Math.max(0, currentQuestionIndex - 5);
+                displayQuestions();
+                updateProgress();
+            }
+        });
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 5) / personalityQuestions.length) * 100;
+            document.getElementById('progressBar').style.width = `${Math.min(progress, 100)}%`;
+            document.getElementById('currentQuestion').textContent = currentQuestionIndex + 1;
+        }
+
+
+
+        // Personality Type Information
+        const personalityTypes = {
+            'JSRK': { 
+                nickname: 'The Steady Light', 
+                description: 'Justice Driven | Seeker of Stability | Radiator | Consistency Driven',
+                category: 'Justice Seeker',
+                emoji: '🕯️',
+                fullDescription: 'You are a calm and dependable source of inspiration for those around you. Your strong sense of fairness guides your actions, and your steady energy radiates warmth and positivity. People see you as a beacon of reliability and moral integrity. You prefer thoughtful, consistent effort and use your rational mind to navigate stress gracefully. Your presence comforts others and motivates them to stay on course.',
+                strengths: ['Grounded leader with strong ethics', 'Consistent and dependable energy', 'Calm under pressure, strategic problem solver'],
+                growthTip: 'Challenge yourself to occasionally embrace spontaneity and adapt to unexpected change to boost creativity.',
+                professions: ['Teacher', 'Counselor', 'Social Worker', 'Librarian', 'Mediator', 'Nurse']
+            },
+            'JSRB': { 
+                nickname: 'The Flare of Hope', 
+                description: 'Justice Driven | Seeker of Stability | Radiator | Burst Driven',
+                category: 'Justice Seeker',
+                emoji: '🔥',
+                fullDescription: 'You are passionate about justice and radiate infectious enthusiasm. Your energy comes in powerful bursts, allowing you to tackle challenges with vigor and inspire others. You thrive on meaningful action but sometimes risk burnout due to your intense pacing. Your calm approach to stress usually helps you bounce back quickly.',
+                strengths: ['Charismatic and motivational', 'Quick to take action on values', 'Resilient under stress'],
+                growthTip: 'Practice pacing yourself to maintain long-term effectiveness and avoid emotional exhaustion.',
+                professions: ['Activist', 'Motivational Speaker', 'Coach', 'Event Organizer', 'Public Relations', 'Nonprofit Leader']
+            },
+            'JSAK': { 
+                nickname: 'The Silent Guardian', 
+                description: 'Justice Driven | Seeker of Stability | Absorber | Consistency Driven',
+                category: 'Justice Seeker',
+                emoji: '🛡️',
+                fullDescription: 'Quiet yet deeply principled, you support justice through thoughtful reflection and steady effort. You prefer to listen and observe before contributing, which makes your words carry weight when you do speak. Your consistent nature helps you follow through on commitments, and you handle stress with rational calmness.',
+                strengths: ['Thoughtful and loyal', 'Steady and reliable in pursuit of goals', 'Calm problem solver'],
+                growthTip: 'Step out of your comfort zone to share your ideas more openly, so others can benefit from your insight.',
+                professions: ['Researcher', 'Analyst', 'Archivist', 'Engineer', 'Accountant', 'IT Specialist']
+            },
+            'JSAB': { 
+                nickname: 'The Grounded Spark', 
+                description: 'Justice Driven | Seeker of Stability | Absorber | Burst Driven',
+                category: 'Justice Seeker',
+                emoji: '⚡',
+                fullDescription: 'You quietly hold strong moral values but express your energy in dynamic bursts. You may be reserved socially but become deeply engaged when motivated by purpose. Your calm under stress allows you to recharge quickly between bursts of focused activity.',
+                strengths: ['Principled with focused energy', 'Calm and reflective, yet passionate when needed', 'Reliable in difficult times'],
+                growthTip: 'Balance your bursts with periods of connection to others to deepen your social support.',
+                professions: ['Writer', 'Graphic Designer', 'Programmer', 'Technician', 'Editor', 'Scientist']
+            },
+            'JCRK': { 
+                nickname: 'The Empathic Leader', 
+                description: 'Justice Driven | Chaos Creator | Radiator | Consistency Driven',
+                category: 'Justice Seeker',
+                emoji: '💝',
+                fullDescription: 'Driven by justice and empathy, you are a passionate and outspoken advocate who can inspire even in chaotic times. You radiate emotional energy consistently, even when under stress. Your deep commitment to fairness fuels your leadership and ability to connect with others on a personal level.',
+                strengths: ['Emotionally expressive and inspiring', 'Resilient through chaos', 'Strong moral compass'],
+                growthTip: 'Practice emotional regulation techniques to manage intense feelings and maintain clarity.',
+                professions: ['Therapist', 'Youth Leader', 'Human Rights Advocate', 'Teacher', 'Team Manager', 'Healthcare Worker']
+            },
+            'JCRB': { 
+                nickname: 'The Emotional Beacon', 
+                description: 'Justice Driven | Chaos Creator | Radiator | Burst Driven',
+                category: 'Justice Seeker',
+                emoji: '💡',
+                fullDescription: 'You are a fierce and emotional champion for justice who moves in powerful bursts. Your energy lights up rooms, and you tend to feel deeply and express openly. Though stress can overwhelm you, your bursts of passion motivate others to join your cause.',
+                strengths: ['Bold and charismatic', 'Intense emotional energy', 'Inspirational to others'],
+                growthTip: 'Find grounding practices to help you recover from emotional highs and avoid burnout.',
+                professions: ['Performer', 'Social Activist', 'Drama Teacher', 'Campaign Organizer', 'Creative Director']
+            },
+            'JCAK': { 
+                nickname: 'The Thoughtful Idealist', 
+                description: 'Justice Driven | Chaos Creator | Absorber | Consistency Driven',
+                category: 'Justice Seeker',
+                emoji: '🤔',
+                fullDescription: 'You pursue justice quietly but intensely, processing emotions deeply and preferring to act when truly motivated. Your steady energy helps you persist even in chaotic environments, and your thoughtful approach allows you to influence others without dominating.',
+                strengths: ['Deeply reflective and principled', 'Steady in emotional storms', 'Influential through calm presence'],
+                growthTip: 'Share your passions more openly to help others understand your vision.',
+                professions: ['Philosopher', 'Author', 'Therapist', 'Ethics Consultant', 'Historian', 'Psychologist']
+            },
+            'JCAB': { 
+                nickname: 'The Gentle Flame', 
+                description: 'Justice Driven | Chaos Creator | Absorber | Burst Driven',
+                category: 'Justice Seeker',
+                emoji: '🕊️',
+                fullDescription: 'Reserved yet passionate, you engage in bursts of activity driven by your moral compass. You may retreat socially but your fire burns bright in pursuit of your ideals. You experience stress strongly but use your introspective nature to recover.',
+                strengths: ['Intense focus when engaged', 'Deep empathy and values', 'Quiet resilience'],
+                growthTip: 'Balance your need for solitude with occasional social connection for support.',
+                professions: ['Poet', 'Indie Musician', 'Illustrator', 'Research Assistant', 'Child Therapist', 'Editor']
+            },
+            'VSRK': { 
+                nickname: 'The Ambitious Organizer', 
+                description: 'Self Victory Driven | Seeker of Stability | Radiator | Consistency Driven',
+                category: 'Victory Seeker',
+                emoji: '🎯',
+                fullDescription: 'You are goal-focused and steady, projecting confident energy that motivates others. You pursue personal victories with persistence and a calm, logical approach to challenges. Your consistency and charisma make you an effective leader.',
+                strengths: ['Persistent and confident', 'Calm strategist', 'Inspires through steady energy'],
+                growthTip: 'Remember to consider others\' needs to avoid isolating yourself.',
+                professions: ['Entrepreneur', 'Project Manager', 'Lawyer', 'Executive', 'Financial Analyst', 'Political Strategist']
+            },
+            'VSRB': { 
+                nickname: 'The Dynamic Achiever', 
+                description: 'Self Victory Driven | Seeker of Stability | Radiator | Burst Driven',
+                category: 'Victory Seeker',
+                emoji: '🚀',
+                fullDescription: 'You are a powerhouse of energy who pursues goals with intense bursts of effort. Your charismatic, confident nature draws people in, and your calm problem-solving keeps you on track despite pressure. You push hard for your success.',
+                strengths: ['High energy and focus', 'Effective under pressure', 'Confident and magnetic'],
+                growthTip: 'Develop patience to sustain long-term goals and nurture relationships.',
+                professions: ['Sales Leader', 'Startup Founder', 'Public Speaker', 'Athlete', 'Content Creator', 'PR Manager']
+            },
+            'VSAK': { 
+                nickname: 'The Tactical Thinker', 
+                description: 'Self Victory Driven | Seeker of Stability | Absorber | Consistency Driven',
+                category: 'Victory Seeker',
+                emoji: '🧮',
+                fullDescription: 'Reserved and strategic, you focus on winning through thoughtful planning and steady work. You prefer to act rather than speak and handle stress by keeping your emotions in check. You shine through your quiet determination.',
+                strengths: ['Strategic and patient', 'Emotionally controlled', 'Focused and independent'],
+                growthTip: 'Practice opening up to others to build stronger support networks.',
+                professions: ['Engineer', 'Game Designer', 'Data Analyst', 'Cybersecurity Expert', 'Architect', 'Strategist']
+            },
+            'VSAB': { 
+                nickname: 'The Quiet Competitor', 
+                description: 'Self Victory Driven | Seeker of Stability | Absorber | Burst Driven',
+                category: 'Victory Seeker',
+                emoji: '🎭',
+                fullDescription: 'You work in focused bursts toward personal success, often keeping your ambitions private. You prefer solitude and thoughtful action over socializing and handle stress by retreating into yourself until ready to act.',
+                strengths: ['Focused and driven', 'Strategic bursts of effort', 'Independent and self-reliant'],
+                growthTip: 'Engage with trusted people more often to gain perspective and encouragement.',
+                professions: ['Programmer', 'Video Editor', 'Independent Artist', 'Researcher', 'UX Designer', 'Software Tester']
+            },
+            'VCRK': { 
+                nickname: 'The Intense Charmer', 
+                description: 'Self Victory Driven | Chaos Creator | Radiator | Consistency Driven',
+                category: 'Victory Seeker',
+                emoji: '✨',
+                fullDescription: 'Bold, expressive, and ambitious, you use your emotional intensity to command attention and pursue your goals. You can handle stress with steady emotional expression and are known for your charm and drive.',
+                strengths: ['Charismatic and passionate', 'Emotionally expressive', 'Steady under stress'],
+                growthTip: 'Work on balancing emotional intensity to avoid overwhelming others.',
+                professions: ['Actor', 'Talk Show Host', 'Team Leader', 'PR Specialist', 'Creative Director', 'Motivational Coach']
+            },
+            'VCRB': { 
+                nickname: 'The Wildfire', 
+                description: 'Self Victory Driven | Chaos Creator | Radiator | Burst Driven',
+                category: 'Victory Seeker',
+                emoji: '🔥',
+                fullDescription: 'You burn bright with fierce energy and ambition, acting in rapid, powerful bursts. Your emotional expressiveness can be overwhelming but often inspires awe. Your competitive spirit drives you to take bold risks.',
+                strengths: ['Dynamic and fearless', 'Highly passionate', 'Inspires action'],
+                growthTip: 'Learn to channel your energy thoughtfully to maintain focus and relationships.',
+                professions: ['Performer', 'Influencer', 'Fashion Designer', 'Activist', 'Brand Manager', 'Athlete']
+            },
+            'VCAK': { 
+                nickname: 'The Sharp Recluse', 
+                description: 'Self Victory Driven | Chaos Creator | Absorber | Consistency Driven',
+                category: 'Victory Seeker',
+                emoji: '🗡️',
+                fullDescription: 'Independent and intense, you work quietly but fiercely toward your own success. You prefer minimal social interaction and steady routines to keep your emotions in check. Your clarity and focus come from deep inner drive.',
+                strengths: ['Highly focused and independent', 'Emotionally deep but controlled', 'Steady persistence'],
+                growthTip: 'Challenge yourself to open up occasionally to build meaningful connections.',
+                professions: ['Programmer', 'Hacker', 'Sci-Fi Writer', 'Mathematician', 'Inventor', 'Solo Entrepreneur']
+            },
+            'VCAB': { 
+                nickname: 'The Unpredictable Force', 
+                description: 'Self Victory Driven | Chaos Creator | Absorber | Burst Driven',
+                category: 'Victory Seeker',
+                emoji: '⚡',
+                fullDescription: 'You are a powerhouse of unpredictable energy, acting on impulse and strong emotion. Your social interactions are limited but intense when they happen. You follow your own path with fierce independence and passion.',
+                strengths: ['Bold and impulsive', 'Emotionally intense', 'Strong-willed and unique'],
+                growthTip: 'Practice grounding techniques to avoid burnout and increase long-term effectiveness.',
+                professions: ['Visual Artist', 'Indie Filmmaker', 'Music Producer', 'Startup Maverick', 'Experimental Researcher', 'Streetwear Designer']
+            }
+        };
+
+        // Calculate Personality Type
+        function calculatePersonalityType() {
+            let scores = {
+                J: 0, V: 0,
+                S: 0, C: 0,
+                R: 0, A: 0,
+                K: 0, B: 0
+            };
+            
+            // Calculate scores for each trait pair
+            for (let i = 0; i < personalityQuestions.length; i++) {
+                if (answers[i] !== undefined) {
+                    const question = personalityQuestions[i];
+                    const direction = question.direction;
+                    const trait = question.trait;
+                    
+                    if (trait === "JV") {
+                        if (direction === "J") {
+                            scores.J += answers[i];
+                        } else {
+                            scores.V += answers[i];
+                        }
+                    } else if (trait === "SC") {
+                        if (direction === "S") {
+                            scores.S += answers[i];
+                        } else {
+                            scores.C += answers[i];
+                        }
+                    } else if (trait === "RA") {
+                        if (direction === "R") {
+                            scores.R += answers[i];
+                        } else {
+                            scores.A += answers[i];
+                        }
+                    } else if (trait === "KB") {
+                        if (direction === "K") {
+                            scores.K += answers[i];
+                        } else {
+                            scores.B += answers[i];
+                        }
+                    }
+                }
+            }
+            
+            // Determine Personality Type (4 letters)
+            const personalityType = 
+                (scores.J > scores.V ? 'J' : 'V') +
+                (scores.S > scores.C ? 'S' : 'C') +
+                (scores.R > scores.A ? 'R' : 'A') +
+                (scores.K > scores.B ? 'K' : 'B');
+            
+            // Get personality type info
+            const typeInfo = personalityTypes[personalityType] || {
+                nickname: 'Unknown Type',
+                description: 'Personality type analysis not available',
+                category: 'Unknown',
+                emoji: '❓',
+                fullDescription: 'Analysis not available for this type.',
+                strengths: ['Not available'],
+                growthTip: 'Not available',
+                professions: ['Not available']
+            };
+            
+            // Get category description
+            const categoryDescriptions = {
+                'Justice Seeker': '⚖️ Justice Seekers are driven by fairness, equality, and helping others. They prioritize moral principles and social harmony in their decisions and actions.',
+                'Victory Seeker': '🏆 Victory Seekers are driven by personal achievement, success, and reaching their goals. They are ambitious, competitive, and focused on personal growth and accomplishment.'
+            };
+            
+            return {
+                type: personalityType,
+                typeInfo: typeInfo,
+                categoryDescription: categoryDescriptions[typeInfo.category] || 'Category description not available.',
+                scores: scores,
+                details: {
+                    JV: { J: scores.J, V: scores.V, winner: scores.J > scores.V ? 'J' : 'V' },
+                    SC: { S: scores.S, C: scores.C, winner: scores.S > scores.C ? 'S' : 'C' },
+                    RA: { R: scores.R, A: scores.A, winner: scores.R > scores.A ? 'R' : 'A' },
+                    KB: { K: scores.K, B: scores.B, winner: scores.K > scores.B ? 'K' : 'B' }
+                }
+            };
+        }
+
+        // Finish test
+        function finishTest() {
+            // If gender not selected, default to 'prefer-not-to-say'
+            if (!answers['gender']) {
+                answers['gender'] = 'prefer-not-to-say';
+            }
+            // Calculate Personality Type
+            const personalityResult = calculatePersonalityType();
+            // Save final data to localStorage
+            const testData = {
+                answers: answers,
+                personalityResult: personalityResult,
+                completedAt: new Date().toISOString()
+            };
+            localStorage.setItem('personalityTestData', JSON.stringify(testData));
+            // Redirect to results page
+            window.location.href = 'result.html';
+        }
+
+        // Clear any incomplete answers on page load
+        function clearIncompleteAnswers() {
+            // Remove any incomplete test data
+            localStorage.removeItem('personalityAnswers');
+        }
+
+        // Clear incomplete answers when user leaves page without submitting
+        window.addEventListener('beforeunload', function() {
+            // Only clear if the test hasn't been completed
+            const testData = localStorage.getItem('personalityTestData');
+            if (!testData) {
+                localStorage.removeItem('personalityAnswers');
+            }
+        });
+
+        // Mobile Navigation Handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle mobile navigation clicks
+            const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+            
+            mobileNavItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    const section = this.getAttribute('data-section');
+                    
+                    if (section === 'results') {
+                        e.preventDefault();
+                        const resultsModal = new bootstrap.Modal(document.getElementById('mobileResultsModal'));
+                        resultsModal.show();
+                    } else if (section === 'types') {
+                        e.preventDefault();
+                        const typesModal = new bootstrap.Modal(document.getElementById('mobileTypesModal'));
+                        typesModal.show();
+                    } else if (section === 'home') {
+                        e.preventDefault();
+                        // Scroll to top of page
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                    
+                    // Add active class to clicked item
+                    mobileNavItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Set home as active by default
+            const homeNav = document.querySelector('[data-section="home"]');
+            if (homeNav) {
+                homeNav.classList.add('active');
+            }
+            
+            // Initialize test
+            clearIncompleteAnswers();
+            initTest();
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Coreli</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            --success-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --warning-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --info-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+/* Footer Base */
+.footer {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      padding: 60px 0 30px;
+      text-align: center;
+    }
+
+    .footer h4 {
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .footer p {
+      max-width: 600px;
+      margin: 0 auto 20px;
+      opacity: 0.9;
+    }
+
+    /* Badges */
+    .footer .badge {
+      font-size: 0.9rem;
+      padding: 8px 12px;
+      border-radius: 30px;
+    }
+
+    /* Social Icons */
+    .footer .social-icon {
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      font-size: 20px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 8px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    .footer .social-icon:hover {
+      background: #ffd700;
+      color: #000;
+      transform: scale(1.2);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    }
+
+    /* Quick Links */
+    .footer .quick-links a {
+      display: inline-block;
+      margin: 0 12px;
+      font-size: 1rem;
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer .quick-links a:hover {
+      color: #ffd700;
+    }
+
+    /* Divider */
+    .footer hr {
+      border-color: rgba(255, 255, 255, 0.3);
+      margin: 30px auto;
+      width: 80%;
+    }
+
+    /* Bottom Text */
+    .footer-bottom {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 8rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--secondary-gradient);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-link {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+            color: #fbbf24 !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: #fbbf24;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .dropdown-menu {
+            background: var(--secondary-gradient);
+            border: 1px solid #444;
+            backdrop-filter: blur(10px);
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateX(5px);
+        }
+
+        /* Content Cards */
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+        }
+
+        .content-section:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 1rem 0;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .feature-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .feature-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .feature-icon.science {
+            background: var(--info-gradient);
+        }
+
+        .feature-icon.design {
+            background: var(--success-gradient);
+        }
+
+        .feature-icon.accuracy {
+            background: var(--warning-gradient);
+        }
+
+        .feature-icon.community {
+            background: var(--primary-gradient);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 4rem 0;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .stats-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 25px;
+            padding: 1rem 2.5rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary-gradient);
+            margin-top: 5rem;
+        }
+
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px) scale(1.1);
+            background: rgba(255,255,255,0.2) !important;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.6); }
+        }
+
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 6rem 0 4rem;
+            }
+            
+            .content-section {
+                padding: 2rem;
+                margin: 1rem 0;
+            }
+            
+            .feature-card {
+                padding: 2rem;
+                margin: 1rem 0;
+            }
+            
+            .stats-section {
+                padding: 3rem 0;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .btn-primary {
+                padding: 0.75rem 2rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Desktop Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient shadow-lg d-none d-lg-block" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); z-index: 1000;">
+        <div class="container">
+            <a class="navbar-brand fw-bold animate__animated animate__fadeInLeft" href="index.html" style="color: white; font-size: 1.8rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                <i class="fas fa-brain me-2 animate__animated animate__pulse animate__infinite"></i>Coreli
+            </a>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link animate__animated animate__fadeInDown px-3" href="index.html" style="color: white; font-weight: 500; font-size: 1.1rem;">
+                            <i class="fas fa-home me-2"></i>Home
+                        </a>
+                    </li>
+                    
+                    <!-- Results Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle animate__animated animate__fadeInDown px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white; font-weight: 500; font-size: 1.1rem;">
+                            <i class="fas fa-chart-bar me-2"></i>Results
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item text-white" href="result.html"><i class="fas fa-eye me-2"></i>View My Results</a></li>
+                            <li><a class="dropdown-item text-white" href="history.html"><i class="fas fa-history me-2"></i>Test History</a></li>
+                            <li><hr class="dropdown-divider" style="border-color: #444;"></li>
+                            <li><a class="dropdown-item text-white" href="compare.html"><i class="fas fa-balance-scale me-2"></i>Compare Types</a></li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Personality Types Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle animate__animated animate__fadeInDown px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white; font-weight: 500; font-size: 1.1rem;">
+                            <i class="fas fa-users me-2"></i>Personality Types
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" style="min-width: 300px;">
+                            <!-- Justice Seekers -->
+                            <li><h6 class="dropdown-header text-warning"><i class="fas fa-balance-scale me-2"></i>Justice Seekers</h6></li>
+                            <li><a class="dropdown-item text-white" href="types/jsrk.html"><i class="fas fa-candle me-2"></i>The Steady Light (JSRK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/jsrb.html"><i class="fas fa-fire me-2"></i>The Flare of Hope (JSRB)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/jsak.html"><i class="fas fa-shield-alt me-2"></i>The Silent Guardian (JSAK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/jsab.html"><i class="fas fa-bolt me-2"></i>The Grounded Spark (JSAB)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/jcrk.html"><i class="fas fa-heart me-2"></i>The Empathic Leader (JCRK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/jcrb.html"><i class="fas fa-lightbulb me-2"></i>The Emotional Beacon (JCRB)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/jcak.html"><i class="fas fa-thinking me-2"></i>The Thoughtful Idealist (JCAK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/jcab.html"><i class="fas fa-dove me-2"></i>The Gentle Flame (JCAB)</a></li>
+                            
+                            <li><hr class="dropdown-divider" style="border-color: #444;"></li>
+                            
+                            <!-- Victory Seekers -->
+                            <li><h6 class="dropdown-header text-success"><i class="fas fa-trophy me-2"></i>Victory Seekers</h6></li>
+                            <li><a class="dropdown-item text-white" href="types/vsrk.html"><i class="fas fa-bullseye me-2"></i>The Ambitious Organizer (VSRK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/vsrb.html"><i class="fas fa-rocket me-2"></i>The Dynamic Achiever (VSRB)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/vsak.html"><i class="fas fa-calculator me-2"></i>The Tactical Thinker (VSAK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/vsab.html"><i class="fas fa-theater-masks me-2"></i>The Quiet Competitor (VSAB)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/vcrk.html"><i class="fas fa-sparkles me-2"></i>The Intense Charmer (VCRK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/vcrb.html"><i class="fas fa-fire me-2"></i>The Wildfire (VCRB)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/vcak.html"><i class="fas fa-sword me-2"></i>The Sharp Recluse (VCAK)</a></li>
+                            <li><a class="dropdown-item text-white" href="types/vcab.html"><i class="fas fa-bolt me-2"></i>The Unpredictable Force (VCAB)</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link animate__animated animate__fadeInDown px-3 active" href="about.html" style="color: white; font-weight: 500; font-size: 1.1rem;">
+                            <i class="fas fa-info-circle me-2"></i>About
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Header -->
+    <div class="d-lg-none" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); padding: 1rem 0; text-align: center;">
+        <a href="index.html" style="color: white; font-size: 1.5rem; font-weight: bold; text-decoration: none; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+            <i class="fas fa-brain me-2 animate__animated animate__pulse animate__infinite"></i>Coreli
+        </a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center hero-content">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h1 class="display-2 fw-bold mb-4 animate__animated animate__fadeInUp hero-title">
+                        <i class="fas fa-info-circle me-3 floating-icon"></i>About Coreli
+                    </h1>
+                    <p class="lead mb-4 animate__animated animate__fadeInUp animate__delay-1s" style="font-size: 1.3rem;">
+                        Empowering self-discovery through comprehensive personality insights and psychological assessments
+                    </p>
+                    <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                        <i class="fas fa-brain fa-3x mb-3 pulse-glow" style="opacity: 0.8;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Mission Section -->
+        <div class="content-section" data-aos="fade-up">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h2 class="h1 fw-bold mb-4" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                        <i class="fas fa-bullseye me-3"></i>Our Mission
+                    </h2>
+                    <p class="lead mb-4" style="font-size: 1.2rem; line-height: 1.8;">
+                        At Coreli, we believe that understanding your personality is the first step toward personal growth and meaningful relationships. Our comprehensive personality assessment system is designed to provide deep insights into your unique traits, preferences, and behavioral patterns.
+                    </p>
+                    <p class="mb-0" style="font-size: 1.1rem; line-height: 1.7;">
+                        We've developed a sophisticated 16-type personality system that goes beyond traditional assessments to capture the nuances of human behavior. Our approach considers four key dimensions: <strong>Justice vs Victory</strong>, <strong>Stability vs Chaos</strong>, <strong>Radiator vs Absorber</strong>, and <strong>Consistency vs Burst</strong>.
+                    </p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="floating-icon">
+                        <i class="fas fa-lightbulb fa-5x" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="content-section" data-aos="fade-up">
+            <h2 class="h1 fw-bold mb-5 text-center" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                <i class="fas fa-star me-3"></i>Why Choose Coreli?
+            </h2>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-content">
+                            <div class="feature-icon science">
+                                <i class="fas fa-science"></i>
+                            </div>
+                            <h4 class="fw-bold mb-3">Scientific Foundation</h4>
+                            <p class="mb-0">Our personality system is built on established psychological principles and extensive research into human behavior patterns, ensuring accurate and reliable results.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-content">
+                            <div class="feature-icon design">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4 class="fw-bold mb-3">User-Centered Design</h4>
+                            <p class="mb-0">We prioritize user experience, making our assessments engaging, accessible, and meaningful for everyone, regardless of their background.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-content">
+                            <div class="feature-icon accuracy">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h4 class="fw-bold mb-3">Comprehensive Analysis</h4>
+                            <p class="mb-0">Get detailed insights into your personality with our 16-type system that captures the complexity and uniqueness of human behavior.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-content">
+                            <div class="feature-icon community">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h4 class="fw-bold mb-3">Personal Growth</h4>
+                            <p class="mb-0">Use your personality insights to improve relationships, career choices, and personal development with actionable recommendations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="container stats-content">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="stat-item">
+                            <div class="stat-number">16</div>
+                            <div class="stat-label">Personality Types</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-item">
+                            <div class="stat-number">40</div>
+                            <div class="stat-label">Assessment Questions</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-item">
+                            <div class="stat-number">4</div>
+                            <div class="stat-label">Core Dimensions</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Free & Accessible</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <div class="content-section text-center" data-aos="fade-up">
+            <h2 class="h1 fw-bold mb-4" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                <i class="fas fa-rocket me-3"></i>Ready to Discover Yourself?
+            </h2>
+            <p class="lead mb-4" style="font-size: 1.2rem;">
+                Take our comprehensive assessment and unlock insights about yourself that can transform your relationships, career, and personal growth.
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="index.html" class="btn btn-primary btn-lg">
+                    <i class="fas fa-play me-2"></i>Take the Test Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <div class="d-lg-none fixed-bottom" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); border-top: 1px solid #444; z-index: 1000;">
+        <div class="row g-0">
+            <!-- Home -->
+            <div class="col-3 text-center py-2">
+                <a href="index.html" class="d-block text-white text-decoration-none mobile-nav-item">
+                    <i class="fas fa-home d-block mb-1" style="font-size: 1.2rem;"></i>
+                    <small style="font-size: 0.7rem;">Home</small>
+                </a>
+            </div>
+            
+            <!-- Results -->
+            <div class="col-3 text-center py-2">
+                <a href="history.html" class="d-block text-white text-decoration-none mobile-nav-item" data-section="results">
+                    <i class="fas fa-chart-bar d-block mb-1" style="font-size: 1.2rem;"></i>
+                    <small style="font-size: 0.7rem;">Results</small>
+                </a>
+            </div>
+            
+            <!-- Personality Types -->
+            <div class="col-3 text-center py-2">
+                <a href="" class="d-block text-white text-decoration-none mobile-nav-item" data-section="types">
+                    <i class="fas fa-users d-block mb-1" style="font-size: 1.2rem;"></i>
+                    <small style="font-size: 0.7rem;">Types</small>
+                </a>
+            </div>
+            
+            <!-- About -->
+            <div class="col-3 text-center py-2">
+                <a href="about.html" class="d-block text-white text-decoration-none mobile-nav-item active">
+                    <i class="fas fa-info-circle d-block mb-1" style="font-size: 1.2rem;"></i>
+                    <small style="font-size: 0.7rem;">About</small>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Modals -->
+    <!-- Results Modal -->
+    <div class="modal fade" id="mobileResultsModal" tabindex="-1" aria-labelledby="mobileResultsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); border: 1px solid #444;">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-white" id="mobileResultsModalLabel">
+                        <i class="fas fa-chart-bar me-2"></i>Results
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-grid gap-2">
+                        <a href="result.html" class="btn btn-outline-light text-start">
+                            <i class="fas fa-eye me-2"></i>View My Results
+                        </a>
+                        <a href="history.html" class="btn btn-outline-light text-start">
+                            <i class="fas fa-history me-2"></i>Test History
+                        </a>
+                        <a href="compare.html" class="btn btn-outline-light text-start">
+                            <i class="fas fa-balance-scale me-2"></i>Compare Types
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personality Types Modal -->
+    <div class="modal fade" id="mobileTypesModal" tabindex="-1" aria-labelledby="mobileTypesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); border: 1px solid #444;">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-white" id="mobileTypesModalLabel">
+                        <i class="fas fa-users me-2"></i>Personality Types
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Justice Seekers -->
+                    <h6 class="text-warning mb-3">
+                        <i class="fas fa-balance-scale me-2"></i>Justice Seekers
+                    </h6>
+                    <div class="row g-2 mb-4">
+                        <div class="col-6">
+                            <a href="types/jsrk.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-candle me-1"></i>JSRK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jsrb.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-fire me-1"></i>JSRB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jsak.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-shield-alt me-1"></i>JSAK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jsab.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-bolt me-1"></i>JSAB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jcrk.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-heart me-1"></i>JCRK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jcrb.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-lightbulb me-1"></i>JCRB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jcak.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-thinking me-1"></i>JCAK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/jcab.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-dove me-1"></i>JCAB
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Victory Seekers -->
+                    <h6 class="text-success mb-3">
+                        <i class="fas fa-trophy me-2"></i>Victory Seekers
+                    </h6>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <a href="types/vsrk.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-bullseye me-1"></i>VSRK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vsrb.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-rocket me-1"></i>VSRB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vsak.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-calculator me-1"></i>VSAK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vsab.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-theater-masks me-1"></i>VSAB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vcrk.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-sparkles me-1"></i>VCRK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vcrb.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-fire me-1"></i>VCRB
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vcak.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-sword me-1"></i>VCAK
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="types/vcab.html" class="btn btn-outline-light btn-sm w-100 text-start">
+                                <i class="fas fa-bolt me-1"></i>VCAB
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <!-- Footer -->
+    <footer class="footer text-white py-5 mt-5 text-center">
+        <div class="container">
+          
+          <!-- Brand -->
+          <div class="brand mb-3">
+            <i class="fas fa-brain fa-2x animate__animated animate__pulse animate__infinite"></i>
+            Coreli
+          </div>
+    
+          <!-- Description -->
+          <p class="description">
+            Empowering self-discovery through personality insights and psychological assessments.
+          </p>
+    
+          <!-- Badges -->
+          <div class="mb-4">
+            <span class="badge bg-light text-dark">
+              <i class="fas fa-users me-1"></i>10K+ Users
+            </span>
+            <span class="badge bg-light text-dark">
+              <i class="fas fa-star me-1"></i>4.9 Rating
+            </span>
+          </div>
+    
+          <!-- Social Links -->
+          <div class="d-flex justify-content-center gap-3 mb-4">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          </div>
+    
+          <!-- Quick Links -->
+          <div class="quick-links mb-4">
+            <a href="index.html"><i class="fas fa-home me-1"></i>Home</a>
+            <a href="about.html"><i class="fas fa-user me-1"></i>About</a>
+            <a href="history.html"><i class="fas fa-chart-line me-1"></i>Results</a>
+          </div>
+    
+          <!-- Divider -->
+          <hr class="my-4">
+    
+          <!-- Bottom -->
+          <p class="mb-0">
+            © 2025 Coreli | Made by Mohsin
+          </p>
+        </div>
+      </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Mobile Navigation Handlers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle mobile navigation clicks
+            const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+            
+            mobileNavItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    const section = this.getAttribute('data-section');
+                    
+                    if (section === 'results') {
+                        e.preventDefault();
+                        const resultsModal = new bootstrap.Modal(document.getElementById('mobileResultsModal'));
+                        resultsModal.show();
+                    } else if (section === 'types') {
+                        e.preventDefault();
+                        const typesModal = new bootstrap.Modal(document.getElementById('mobileTypesModal'));
+                        typesModal.show();
+                    }
+                    
+                    // Add active class to clicked item
+                    mobileNavItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
